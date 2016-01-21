@@ -26,7 +26,7 @@ defmodule LexibombServer.WordList do
   @spec member?(String.t) :: boolean
   def member?(word) do
     Agent.get(__MODULE__, fn word_list ->
-      word in word_list
+      String.downcase(word) in word_list
     end)
   end
 end
