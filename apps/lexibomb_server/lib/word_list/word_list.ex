@@ -11,10 +11,11 @@ defmodule LexibombServer.WordList do
   @spec start_link :: Agent.on_start
   def start_link do
     path = Application.app_dir(:lexibomb_server, "priv/word.list")
-    word_list = path
-                |> File.stream!
-                |> Stream.map(&String.rstrip/1)
-                |> MapSet.new
+    word_list =
+      path
+      |> File.stream!
+      |> Stream.map(&String.rstrip/1)
+      |> MapSet.new
 
     Agent.start_link(fn -> word_list end, name: __MODULE__)
   end
