@@ -1,23 +1,30 @@
 defmodule LexibombServer.WordList do
   @moduledoc """
-  Manages access to the list of valid words based on Mendel Leo Cooper's
-  _[Yet Another Word List](https://github.com/elasticdog/yawl)_ (YAWL).
+  Manages access to the list of valid gameplay words.
+
+  The default word list is based on Mendel Leo Cooper's
+  _[Yet Another Word List](https://github.com/elasticdog/yawl)_ (YAWL) project.
   """
 
   @doc """
-  Starts an agent linked to the current process to store the word list after
-  reading it from disk.
+  Starts an agent linked to the current process to store a normalized version
+  of `word_list`.
   """
-  @spec start_link :: Agent.on_start
-  def start_link do
-    path = Application.app_dir(:lexibomb_server, "priv/word.list")
-    word_list =
-      path
-      |> File.stream!
-      |> Stream.map(&String.rstrip/1)
-      |> MapSet.new
+  @spec start_link(MapSet.t) :: Agent.on_start
+  def start_link(word_list \\ default_list) do
+    normalized_list = Enum.map(word_list, &normalize/1)
+    Agent.start_link(fn -> normalized_list end, name: __MODULE__)
+  end
 
-    Agent.start_link(fn -> word_list end, name: __MODULE__)
+  defp default_list do
+    Application.app_dir(:lexibomb_server, "priv/word.list")
+    |> File.stream!
+    |> Stream.map(&String.rstrip/1)
+    |> MapSet.new
+  end
+
+  defp normalize(word) do
+    String.upcase(word)
   end
 
   @doc """
@@ -26,7 +33,7 @@ defmodule LexibombServer.WordList do
   @spec member?(String.t) :: boolean
   def member?(word) do
     Agent.get(__MODULE__, fn word_list ->
-      String.downcase(word) in word_list
+      normalize(word) in word_list
     end)
   end
 end
