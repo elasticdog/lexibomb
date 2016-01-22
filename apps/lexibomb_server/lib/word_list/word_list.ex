@@ -16,6 +16,7 @@ defmodule LexibombServer.WordList do
     Agent.start_link(fn -> normalized_list end, name: __MODULE__)
   end
 
+  @spec default_list :: MapSet.t
   defp default_list do
     Application.app_dir(:lexibomb_server, "priv/word.list")
     |> File.stream!
@@ -23,6 +24,7 @@ defmodule LexibombServer.WordList do
     |> MapSet.new
   end
 
+  @spec normalize(String.t) :: String.t
   defp normalize(word) do
     String.upcase(word)
   end
