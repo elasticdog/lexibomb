@@ -1,14 +1,14 @@
 defmodule LexibombServer.WordList do
   @moduledoc """
   Manages access to the list of valid gameplay words.
-
-  The default word list is based on Mendel Leo Cooper's
-  _[Yet Another Word List](https://github.com/elasticdog/yawl)_ (YAWL) project.
   """
 
   @doc """
   Starts an agent linked to the current process to store a normalized version
   of `word_list`.
+
+  The default word list is based on Mendel Leo Cooper's
+  _[Yet Another Word List](https://github.com/elasticdog/yawl)_ (YAWL) project.
   """
   @spec start_link(MapSet.t) :: Agent.on_start
   def start_link(word_list \\ default_list) do
