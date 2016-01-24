@@ -23,6 +23,7 @@ defmodule Lexibomb.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 0.3", only: [:dev]},
+      {:earmark, "~> 0.2", only: [:dev]},
       {:ex_doc, "~> 0.11", only: [:dev]},
     ]
   end
