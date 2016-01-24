@@ -44,7 +44,7 @@ cd "$top_level" || exit 1
 # the output directory is ignored by .gitignore
 git checkout master
 short_sha=$(git rev-parse --short HEAD)
-mix docs
+mix docs || exit 1
 
 git fetch origin gh-pages:gh-pages
 git checkout gh-pages
