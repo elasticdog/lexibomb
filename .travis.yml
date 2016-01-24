@@ -1,0 +1,18 @@
+language: elixir
+elixir:
+  - 1.2.1
+notifications:
+  email: false
+env:
+  global:
+    secure: l3QJzumtMhtnJhY/s5sRETHrRwR5mV7YmziFzxHL1w/gvWz9rcCt/qBNpJpx0eXG0QFsfJRr+eAO0U4QUn4hshXD8Ioa0t8c3qEniShFLNyeDD1MihyxuWm1j1o8TFLmAuukb5+fOt1hZFZgZYZgL8T0rAygxBXroKvmse5lvtfOa75TE/hz86l0TeB+FG2fMDp4O2nZv6RLV96xKRo6wB4QlIZT1Ug0grtmnrz56B6ono/3RfR/0O9u5t9BqHf35ldGT+ROkarykswDuVhs5feNKyR+kyYTeQulTOrL4R2QpH03ga7S4r/8kgarHf9M4sunjRBDjgrdzFTUYcKTgfocoDfJg1UAzcpxkYYR4bJJ6AtbqiFCBM1hScuAuaXFYD34dUfC7/4R2fWbozHpsphpkbUlHmlSa1nmre5rKZ+V02v6GSRnbghYB2MeGBIQ5F95Iwl61Kh6e+3hKEKOF7TTaopiBRnCbevtOfeynSsapPAsBiUbhUS5fxxedBm59pe4GFAkGj09LYyE2k0HIzcrpB8W5whv8bwLjpOsNAVLtbTQDjxMm8ZcIa1rBMXs+yrRcemf1tcZhb8iyYSL9UB5rLnfW5ffYwKRU/pQx45vxgduQ6ug4QQFDzKadBk3jjEY4/4sfzgiJZis1rlsZAkDmcqGvzDGFGfxBfLmff4=
+cache:
+  directories:
+    - deps
+after_success:
+  - git config user.name 'Travis CI'
+  - git config user.email 'build@travis-ci.org'
+  - git config url.https://github.com/.insteadOf git://github.com/
+  - git config credential.helper 'store --file=.git/credentials'
+  - printf 'https://%s:@github.com' "$GH_TOKEN" > .git/credentials
+  - ./priv/deploy-docs
