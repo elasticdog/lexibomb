@@ -26,7 +26,7 @@ done
 # safety checks for running this on travis ci;
 # setting the `--force` command line option will bypass these
 if [[ -z $force ]]; then
-	[[ $TRAVIS_REPO_SLUG == 'elasticdog/lexibomb-elixir' ]] || exit 1
+	[[ $TRAVIS_REPO_SLUG == 'elasticdog/lexibomb' ]] || exit 1
 	[[ $TRAVIS_PULL_REQUEST == 'false' ]] || exit 1
 	[[ $TRAVIS_BRANCH == 'master' ]] || exit 1
 fi

@@ -4,8 +4,8 @@ defmodule LexibombServer.Mixfile do
   def project do
     [app: :lexibomb_server,
      name: "Lexibomb Server",
-     source_url: "https://github.com/elasticdog/lexibomb-elixir",
-     homepage_url: "https://elasticdog.github.io/lexibomb-elixir",
+     source_url: "https://github.com/elasticdog/lexibomb",
+     homepage_url: "https://elasticdog.github.io/lexibomb",
      version: "0.0.1",
      build_path: "../../_build",
      config_path: "../../config/config.exs",

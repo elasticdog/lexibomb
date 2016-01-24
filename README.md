@@ -2,13 +2,13 @@ Lexibomb
 ========
 
 A tile-based word game, written in [Elixir](http://elixir-lang.org/). This repo
-is a rewrite of the [proof of concept](https://github.com/elasticdog/lexibomb/),
+is a rewrite of the [proof of concept](https://github.com/elasticdog/lexibomb-poc/),
 which was written in [Swift](https://developer.apple.com/swift/).
 
-[![Build Status](https://travis-ci.org/elasticdog/lexibomb-elixir.svg?branch=master)](https://travis-ci.org/elasticdog/lexibomb-elixir)
+[![Build Status](https://travis-ci.org/elasticdog/lexibomb.svg?branch=master)](https://travis-ci.org/elasticdog/lexibomb)
 
 > _Generated [ExDoc](https://github.com/elixir-lang/ex_doc) documentation can
-> be found at <https://elasticdog.github.io/lexibomb-elixir/>_
+> be found at <https://elasticdog.github.io/lexibomb/>_
 
 Usage
 -----
@@ -16,8 +16,8 @@ Usage
 Once you have [installed Elixir](http://elixir-lang.org/install.html), you can
 clone this repository and run all of the tests via the following commands:
 
-    $ git clone https://github.com/elasticdog/lexibomb-elixir.git
-    $ cd lexibomb-elixir/
+    $ git clone https://github.com/elasticdog/lexibomb.git
+    $ cd lexibomb/
     $ mix deps.get
     $ mix test
 
