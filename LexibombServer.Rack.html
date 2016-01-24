@@ -72,9 +72,16 @@
       
         <section id="moduledoc" class="docstring">
           <p>Provides functions related to dealing with a rack of tiles.</p>
-<p>A tile is represented as a single-character string, like <code>&quot;W&quot;</code>. A blank tile, while on the rack, is represented as the underscore character, <code>&quot;_&quot;</code>. Once a blank tile is played on the board, it is used to represent a specific letter in a word, but does not earn points. To distinguish between scoring and non-scoring tiles, uppercase and lowercase letters are used respectively.</p>
-<p>A rack is a list of tiles (usually 7 tiles), like <code>[&quot;E&quot;, &quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;T&quot;, &quot;S&quot;]</code>.</p>
-<p>For example, <code>~W(E E L R T T _)</code> is a rack that contains a blank tile; and <code>~W(L E T T E R s)</code> is a word played on the board that uses the blank to stand for the letter <em>S</em>.</p>
+<p>A tile is represented as a single-character string, like <code class="inline">&quot;W&quot;</code>. A blank tile,
+while on the rack, is represented as the underscore character, <code class="inline">&quot;_&quot;</code>. Once
+a blank tile is played on the board, it is used to represent a specific
+letter in a word, but does not earn points. To distinguish between scoring
+and non-scoring tiles, uppercase and lowercase letters are used respectively.</p>
+<p>A rack is a list of tiles (usually 7 tiles),
+like <code class="inline">[&quot;E&quot;, &quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;T&quot;, &quot;S&quot;]</code>.</p>
+<p>For example, <code class="inline">~W(E E L R T T _)</code> is a rack that contains a blank tile;
+and <code class="inline">~W(L E T T E R s)</code> is a word played on the board that uses the blank to
+stand for the letter <em>S</em>.</p>
 
         </section>
       
@@ -99,7 +106,7 @@
     <a href="#letters/1">letters(rack)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Returns the distinct letters in a <code>rack</code></p>
+    <div class="summary-synopsis"><p>Returns the distinct letters in a <code class="inline">rack</code></p>
 </div>
   
 </div>
@@ -108,7 +115,7 @@
     <a href="#remove/2">remove(rack, tiles)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Returns a copy of <code>rack</code> with the given <code>tiles</code> removed</p>
+    <div class="summary-synopsis"><p>Returns a copy of <code class="inline">rack</code> with the given <code class="inline">tiles</code> removed</p>
 </div>
   
 </div>
@@ -156,9 +163,9 @@
     </div>
   
   <section class="docstring">
-    <p>Returns the distinct letters in a <code>rack</code>.</p>
+    <p>Returns the distinct letters in a <code class="inline">rack</code>.</p>
 <p>Includes the lowercase alphabet if there are any blank tiles.</p>
-<h2 id="examples">Examples</h2>
+<h2>Examples</h2>
 <pre><code class="iex elixir">iex&gt; LexibombServer.Rack.letters ~W(E E L R T T S)
 [&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;S&quot;]
 iex&gt; LexibombServer.Rack.letters ~W(E E L R T T _)
@@ -190,9 +197,10 @@ iex&gt; LexibombServer.Rack.letters ~W(E E L R T T _)
     </div>
   
   <section class="docstring">
-    <p>Returns a copy of <code>rack</code> with the given <code>tiles</code> removed.</p>
-<p>If any of the given tiles are lowercase letters, a corresponding blank tile is removed from the rack.</p>
-<h2 id="examples">Examples</h2>
+    <p>Returns a copy of <code class="inline">rack</code> with the given <code class="inline">tiles</code> removed.</p>
+<p>If any of the given tiles are lowercase letters, a corresponding blank tile
+is removed from the rack.</p>
+<h2>Examples</h2>
 <pre><code class="iex elixir">iex&gt; LexibombServer.Rack.remove ~W(E E L R T T S), ~W(S E T)
 [&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;]
 iex&gt; LexibombServer.Rack.remove ~W(E E L R T T _), ~W(T R E a T)
