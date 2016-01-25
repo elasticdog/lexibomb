@@ -1,11 +1,13 @@
 defmodule LexibombServer.Mixfile do
   use Mix.Project
 
+  @source_url "https://github.com/elasticdog/lexibomb"
+
   def project do
     [
       app: :lexibomb_server,
       name: "Lexibomb Server",
-      source_url: "https://github.com/elasticdog/lexibomb",
+      source_url: @source_url,
       homepage_url: "https://elasticdog.github.io/lexibomb",
       version: "0.0.1",
       build_path: "../../_build",
@@ -17,7 +19,7 @@ defmodule LexibombServer.Mixfile do
       start_permanent: Mix.env == :prod,
       deps: deps,
       docs: [
-        source_url_pattern: "https://github.com/elasticdog/lexibomb/blob/master/apps/lexibomb_server/%{path}#L%{line}",
+        source_url_pattern: "#{@source_url}/blob/master/apps/lexibomb_server/%{path}#L%{line}",
       ],
     ]
   end
