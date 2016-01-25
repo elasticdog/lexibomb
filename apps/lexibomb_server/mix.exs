@@ -9,7 +9,7 @@ defmodule LexibombServer.Mixfile do
       name: "Lexibomb Server",
       source_url: @source_url,
       homepage_url: "https://elasticdog.github.io/lexibomb",
-      version: "0.0.1",
+      version: "0.0.1-dev",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
