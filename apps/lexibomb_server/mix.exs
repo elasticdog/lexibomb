@@ -19,9 +19,21 @@ defmodule LexibombServer.Mixfile do
       start_permanent: Mix.env == :prod,
       deps: deps,
       docs: [
-        source_url_pattern: "#{@source_url}/blob/master/apps/lexibomb_server/%{path}#L%{line}",
+        source_url_pattern: "#{@source_url}/blob/#{source_ref}/apps/lexibomb_server/%{path}#L%{line}",
       ],
     ]
+  end
+
+  defp source_ref do
+    {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
+    ref = String.rstrip(ref)
+    {tag, _} = System.cmd("git", ["tag", "--points-at", ref])
+    tag = String.rstrip(tag)
+
+    case tag do
+      "" -> ref
+      _ -> tag
+    end
   end
 
   # Configuration for the OTP application
