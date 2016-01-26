@@ -99,7 +99,7 @@ defmodule LexibombServer.Board do
     offset =
       case row do
         0 -> 0
-        _ -> (row * size) - 1
+        _ -> row * size
       end
     Enum.slice(board, offset, size)
   end
