@@ -63,7 +63,7 @@
         LexibombServer.Rack
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/68fab7e1047411876d50c8a24d24f7d1ed63e18d/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/97aa072276475cd55b9645b8dbe6b7ae87257902/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -72,16 +72,7 @@
       
         <section id="moduledoc" class="docstring">
           <p>Provides functions related to dealing with a rack of tiles.</p>
-<p>A tile is represented as a single-character string, like <code class="inline">&quot;W&quot;</code>. A blank tile,
-while on the rack, is represented as the underscore character, <code class="inline">&quot;_&quot;</code>. Once
-a blank tile is played on the board, it is used to represent a specific
-letter in a word, but does not earn points. To distinguish between scoring
-and non-scoring tiles, uppercase and lowercase letters are used respectively.</p>
-<p>A rack is a list of tiles (usually 7 tiles),
-like <code class="inline">[&quot;E&quot;, &quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;T&quot;, &quot;S&quot;]</code>.</p>
-<p>For example, <code class="inline">~W(E E L R T T _)</code> is a rack that contains a blank tile;
-and <code class="inline">~W(L E T T E R s)</code> is a word played on the board that uses the blank to
-stand for the letter <em>S</em>.</p>
+<p>A rack is a list of (usually 7) tiles, like <code class="inline">[&quot;E&quot;, &quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;T&quot;, &quot;S&quot;]</code>.</p>
 
         </section>
       
@@ -147,7 +138,7 @@ stand for the letter <em>S</em>.</p>
     </a>
     <span class="signature">letters(rack)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/68fab7e1047411876d50c8a24d24f7d1ed63e18d/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L36" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/97aa072276475cd55b9645b8dbe6b7ae87257902/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L25" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -181,7 +172,7 @@ iex&gt; LexibombServer.Rack.letters ~W(E E L R T T _)
     </a>
     <span class="signature">remove(rack, tiles)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/68fab7e1047411876d50c8a24d24f7d1ed63e18d/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L61" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/97aa072276475cd55b9645b8dbe6b7ae87257902/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L50" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     

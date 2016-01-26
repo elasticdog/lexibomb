@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.11.4">
-    <title>LexibombServer.WordList – Lexibomb Server v0.0.1-dev</title>
+    <title>LexibombServer.Board.Square – Lexibomb Server v0.0.1-dev</title>
     <link rel="stylesheet" href="dist/app-1e374caa3d.css" />
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -60,10 +60,10 @@
 
       <h1>
         <small class="visible-xs">Lexibomb Server v0.0.1-dev</small>
-        LexibombServer.WordList
+        LexibombServer.Board.Square
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/97aa072276475cd55b9645b8dbe6b7ae87257902/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/97aa072276475cd55b9645b8dbe6b7ae87257902/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -71,8 +71,7 @@
 
       
         <section id="moduledoc" class="docstring">
-          <p>Manages access to the list of valid gameplay words.</p>
-
+          
         </section>
       
 
@@ -93,21 +92,8 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#member?/1">member?(word)</a>
+    <a href="#draw/1">draw(square)</a>
   </div>
-  
-    <div class="summary-synopsis"><p>Checks if the word list contains <code class="inline">word</code></p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#start_link/1">start_link(word_list \\ default_list)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Starts an agent linked to the current process to store a normalized version
-of <code class="inline">word_list</code></p>
-</div>
   
 </div>
 
@@ -131,61 +117,21 @@ of <code class="inline">word_list</code></p>
             </a>
             Functions
           </h1>
-          <div class="detail" id="member?/1">
+          <div class="detail" id="draw/1">
   <div class="detail-header">
-    <a href="#member?/1" class="detail-link" title="Link to this function">
+    <a href="#draw/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">member?(word)</span>
+    <span class="signature">draw(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/97aa072276475cd55b9645b8dbe6b7ae87257902/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L36" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/97aa072276475cd55b9645b8dbe6b7ae87257902/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L15" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">member?(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: boolean</code></pre>
-        
-      </div>
-    </div>
-  
   <section class="docstring">
-    <p>Checks if the word list contains <code class="inline">word</code>.</p>
-
-  </section>
-</div>
-<div class="detail" id="start_link/1">
-  <div class="detail-header">
-    <a href="#start_link/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">start_link(word_list \\ default_list)</span>
-      
-      <a href="https://github.com/elasticdog/lexibomb/blob/97aa072276475cd55b9645b8dbe6b7ae87257902/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L14" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">start_link(<a href="http://elixir-lang.org/docs/stable/elixir/MapSet.html#t:t/0">MapSet.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/Agent.html#t:on_start/0">Agent.on_start</a></code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Starts an agent linked to the current process to store a normalized version
-of <code class="inline">word_list</code>.</p>
-<p>The default word list is based on Mendel Leo Cooper’s
-<em><a href="https://github.com/elasticdog/yawl">Yet Another Word List</a></em> (YAWL) project.</p>
-
   </section>
 </div>
 
