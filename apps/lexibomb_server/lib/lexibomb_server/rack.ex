@@ -2,18 +2,7 @@ defmodule LexibombServer.Rack do
   @moduledoc """
   Provides functions related to dealing with a rack of tiles.
 
-  A tile is represented as a single-character string, like `"W"`. A blank tile,
-  while on the rack, is represented as the underscore character, `"_"`. Once
-  a blank tile is played on the board, it is used to represent a specific
-  letter in a word, but does not earn points. To distinguish between scoring
-  and non-scoring tiles, uppercase and lowercase letters are used respectively.
-
-  A rack is a list of tiles (usually 7 tiles),
-  like `["E", "E", "L", "R", "T", "T", "S"]`.
-
-  For example, `~W(E E L R T T _)` is a rack that contains a blank tile;
-  and `~W(L E T T E R s)` is a word played on the board that uses the blank to
-  stand for the letter _S_.
+  A rack is a list of (usually 7) tiles, like `["E", "E", "L", "R", "T", "T", "S"]`.
   """
 
   @blank "_"
