@@ -14,8 +14,41 @@ defmodule LexibombServer.Board do
   def empty_board(size) do
     border = 2
     total_squares = (size + border) * (size + border)
-    for _ <- 1..total_squares, do: %Square{}
+    board = for _ <- 1..total_squares, do: %Square{}
+    board |> deactivate_border
   end
+
+  defp deactivate_border(board) do
+    size = size_of_raw(board)
+    board
+    |> Enum.with_index
+    |> Enum.map(fn {square, index} ->
+         case border_square?(size, index) do
+           true -> Square.deactivate(square)
+           false -> square
+         end
+       end)
+  end
+
+  defp border_square?(size, index) do
+    cond do
+      first_row?(size, index) ->
+        true
+      last_row?(size, index) ->
+        true
+      first_col?(size, index) ->
+        true
+      last_col?(size, index) ->
+        true
+      true ->
+        false
+    end
+  end
+
+  defp first_row?(size, index), do: index < size
+  defp last_row?(size, index), do: index >= (size * (size - 1))
+  defp first_col?(size, index), do: rem(index, size) === 0
+  defp last_col?(size, index), do: rem(index, size) === size - 1
 
   def debug(device \\ :stdio, board) do
     size = size_of_raw(board)
