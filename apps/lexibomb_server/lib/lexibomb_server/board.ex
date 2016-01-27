@@ -2,7 +2,7 @@ defmodule LexibombServer.Board do
   @moduledoc """
   """
 
-  defstruct [:squares]
+  defstruct [:grid]
 
   alias LexibombServer.Board
   alias LexibombServer.Board.Square
@@ -12,37 +12,33 @@ defmodule LexibombServer.Board do
 
   def new(size \\ @default_size) do
     border = 2
-    squares =
-      empty_board(size + border)
+    grid =
+      empty_grid(size + border)
       |> deactivate_border
 
-    Agent.start_link(fn -> %Board{squares: squares} end)
+    Agent.start_link(fn -> %Board{grid: grid} end)
   end
 
-  def empty_board(size) do
+  def empty_grid(size) do
     for row <- 0 .. (size - 1),
         col <- 0 .. (size - 1),
         into: %{},
         do: {{row, col}, %Square{}}
   end
 
-  def deactivate_border(squares) do
-    coords = Map.keys(squares)
-    size = size(squares)
+  def deactivate_border(grid) do
+    coords = Map.keys(grid)
+    size = size(grid)
     border_coords = Enum.filter(coords, &border_square?(&1, size))
 
-    Enum.reduce(border_coords, squares, &deactivate/2)
+    Enum.reduce(border_coords, grid, &deactivate/2)
   end
 
-  def size(squares) when is_map(squares) do
-    squares
+  def size(grid) do
+    grid
     |> map_size
     |> :math.sqrt
     |> round
-  end
-
-  def size(board) do
-    board.squares |> size
   end
 
   def border_square?(coord, size) do
@@ -58,8 +54,8 @@ defmodule LexibombServer.Board do
     end
   end
 
-  def deactivate(coord, squares) do
-    squares |> Map.update!(coord, &Square.deactivate/1)
+  def deactivate(coord, grid) do
+    grid |> Map.update!(coord, &Square.deactivate/1)
   end
 
   def get(pid) do
