@@ -2,56 +2,68 @@ defmodule LexibombServer.Board do
   @moduledoc """
   """
 
+  defstruct [:squares]
+
+  alias LexibombServer.Board
   alias LexibombServer.Board.Square
 
   @default_size 15
   @bomb_count 22
 
   def new(size \\ @default_size) do
-    empty_board(size)
+    squares = empty_board(size) |> deactivate_border
+    Agent.start_link(fn -> %Board{squares: squares} end)
   end
 
   def empty_board(size) do
-    border = 2
-    total_squares = (size + border) * (size + border)
-    board = for _ <- 1..total_squares, do: %Square{}
-    board |> deactivate_border
+    for row <- 0 .. (size + 1),
+        col <- 0 .. (size + 1),
+        into: %{},
+        do: {{row, col}, %Square{}}
   end
 
-  defp deactivate_border(board) do
-    size = size_of_raw(board)
-    board
-    |> Enum.with_index
-    |> Enum.map(fn {square, index} ->
-         case border_square?(size, index) do
-           true -> Square.deactivate(square)
-           false -> square
-         end
-       end)
+  def deactivate_border(squares) do
+    coords = Map.keys(squares)
+    size = size(squares)
+    border_coords = Enum.filter(coords, &border_square?(&1, size))
+
+    Enum.reduce(border_coords, squares, &deactivate/2)
   end
 
-  defp border_square?(size, index) do
-    cond do
-      first_row?(size, index) ->
-        true
-      last_row?(size, index) ->
-        true
-      first_col?(size, index) ->
-        true
-      last_col?(size, index) ->
-        true
-      true ->
-        false
+  def size(squares) when is_map(squares) do
+    squares
+    |> map_size
+    |> :math.sqrt
+    |> round
+  end
+
+  def size(board) do
+    board.squares |> size
+  end
+
+  def border_square?(coord, size) do
+    first = 0
+    last = size - 1
+
+    case coord do
+      {^first, _} -> true
+      {_, ^first} -> true
+      {^last, _} -> true
+      {_, ^last} -> true
+      _ -> false
     end
   end
 
-  defp first_row?(size, index), do: index < size
-  defp last_row?(size, index), do: index >= (size * (size - 1))
-  defp first_col?(size, index), do: rem(index, size) === 0
-  defp last_col?(size, index), do: rem(index, size) === size - 1
+  def deactivate(coord, squares) do
+    squares |> Map.update!(coord, &Square.deactivate/1)
+  end
+
+  def get(pid) do
+    Agent.get(pid, &(&1))
+  end
 
   def debug(device \\ :stdio, board) do
-    size = size_of_raw(board)
+    size = size(board)
     border = 2
 
     header = draw_header(size - border)
@@ -61,20 +73,6 @@ defmodule LexibombServer.Board do
 
     board = header <> top <> middle <> bottom
     IO.write(device, board)
-  end
-
-  def size_of(board) do
-    border = 2
-    board
-    |> size_of_raw
-    |> Kernel.'-'(border)
-  end
-
-  defp size_of_raw(board) do
-    board
-    |> length
-    |> :math.sqrt
-    |> round
   end
 
   defp draw_header(size) do
@@ -99,7 +97,7 @@ defmodule LexibombServer.Board do
   end
 
   defp draw_all_rows(board) do
-    size = size_of_raw(board)
+    size = size(board)
     grid_line = draw_grid_line(size, :middle)
     rows = for row <- 0..size-1, do: draw_row(board, row)
     rows |> Enum.join(grid_line)
@@ -107,7 +105,7 @@ defmodule LexibombServer.Board do
 
   defp draw_row(board, row) do
     first_row = 0
-    last_row = size_of_raw(board) - 1
+    last_row = size(board) - 1
     label =
       case row do
         ^first_row -> "  "
@@ -128,7 +126,7 @@ defmodule LexibombServer.Board do
   end
 
   defp get_row(board, row) do
-    size = size_of_raw(board)
+    size = size(board)
     offset =
       case row do
         0 -> 0
