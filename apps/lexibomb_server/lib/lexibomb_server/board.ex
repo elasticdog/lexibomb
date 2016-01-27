@@ -6,17 +6,21 @@ defmodule LexibombServer.Board do
 
   alias LexibombServer.Board
   alias LexibombServer.Board.Square
+  alias LexibombServer.Utils
 
   @default_size 15
   @bomb_count 22
 
   def new(size \\ @default_size) do
-    border = 2
-    grid =
-      empty_grid(size + border)
-      |> deactivate_border
+    board = %Board{grid: initialize_grid(size)}
+    Agent.start_link(fn -> board end)
+  end
 
-    Agent.start_link(fn -> %Board{grid: grid} end)
+  def initialize_grid(size) do
+    border = 2
+
+    empty_grid(size + border)
+    |> deactivate_border
   end
 
   def empty_grid(size) do
@@ -28,8 +32,8 @@ defmodule LexibombServer.Board do
 
   def deactivate_border(grid) do
     coords = Map.keys(grid)
-    size = size(grid)
-    border_coords = Enum.filter(coords, &border_square?(&1, size))
+    grid_size = size(grid)
+    border_coords = Enum.filter(coords, &border_square?(&1, grid_size))
 
     Enum.reduce(border_coords, grid, &deactivate/2)
   end
@@ -41,15 +45,22 @@ defmodule LexibombServer.Board do
     |> round
   end
 
-  def border_square?(coord, size) do
+  def border_square?(coord, grid_size) do
+    {row, col} = coord
+    cond do
+      row |> first_or_last?(grid_size) -> true
+      col |> first_or_last?(grid_size) -> true
+      true -> false
+    end
+  end
+
+  def first_or_last?(index, size) do
     first = 0
     last = size - 1
 
-    case coord do
-      {^first, _} -> true
-      {_, ^first} -> true
-      {^last, _} -> true
-      {_, ^last} -> true
+    case index do
+      ^first -> true
+      ^last -> true
       _ -> false
     end
   end
@@ -62,76 +73,63 @@ defmodule LexibombServer.Board do
     Agent.get(pid, &(&1))
   end
 
-  def debug(device \\ :stdio, board) do
-    size = size(board)
+  def debug(board) do
+    grid_size = size(board.grid)
     border = 2
 
-    header = draw_header(size - border)
-    top = draw_grid_line(size, :top)
-    middle = draw_all_rows(board)
-    bottom = draw_grid_line(size, :bottom)
+    header = draw_header(grid_size - border)
+    top = Utils.draw_grid_line(grid_size, :top) |> Utils.to_padded_line(3)
+    middle = draw_all_rows(board.grid)
+    bottom = Utils.draw_grid_line(grid_size, :bottom) |> Utils.to_padded_line(3)
 
-    board = header <> top <> middle <> bottom
-    IO.write(device, board)
+    header <> top <> middle <> bottom
   end
 
-  defp draw_header(size) do
-    last_label = ?a + size - 1
-    header =
-      Enum.to_list(?a .. last_label)
-      |> List.to_string
-      |> String.graphemes
-      |> Enum.join("   ")
-    "         " <> header <> "\n"
+  def draw_header(size) do
+    last_col = ?a + size - 1
+
+    Enum.to_list(?a .. last_col)
+    |> List.to_string
+    |> String.graphemes
+    |> Enum.join("   ")
+    |> Utils.to_padded_line(9)
   end
 
-  defp draw_grid_line(size, :top), do: do_draw_grid_line(size, "┌", "┬", "┐")
-  defp draw_grid_line(size, :middle), do: do_draw_grid_line(size, "├", "┼", "┤")
-  defp draw_grid_line(size, :bottom), do: do_draw_grid_line(size, "└", "┴", "┘")
+  def draw_all_rows(grid) do
+    grid_size = size(grid)
+    grid_line =
+      grid_size
+      |> Utils.draw_grid_line(:middle)
+      |> Utils.to_padded_line(3)
 
-  defp do_draw_grid_line(size, first, inner, last) do
-    separators = for _ <- 0..size-2, do: inner
-    separators = [first] ++ separators ++ [last]
-    grid_line = Enum.join(separators, "───")
-    "   " <> grid_line <> "\n"
+    grid
+    |> Enum.sort_by(fn {coord, _} -> coord end)
+    |> Stream.map(fn {_, square} -> inspect(square) end)
+    |> Stream.chunk(grid_size)
+    |> Stream.map(&Utils.draw_segments/1)
+    |> label_lines(grid_size)
+    |> Enum.join(grid_line)
   end
 
-  defp draw_all_rows(board) do
-    size = size(board)
-    grid_line = draw_grid_line(size, :middle)
-    rows = for row <- 0..size-1, do: draw_row(board, row)
-    rows |> Enum.join(grid_line)
+  def label_lines(rows, grid_size) do
+    rows
+    |> Stream.with_index
+    |> Stream.map(fn {row, index} ->
+         label? = !first_or_last?(index, grid_size)
+         label = if label?, do: zero_pad(index, 2), else: "  "
+
+         label <> Utils.to_padded_line(row, 1)
+       end)
   end
 
-  defp draw_row(board, row) do
-    first_row = 0
-    last_row = size(board) - 1
-    label =
-      case row do
-        ^first_row -> "  "
-        ^last_row -> "  "
-        _ -> zero_pad(row, 2)
-      end
-
-    row =
-      get_row(board, row)
-      |> Enum.map(&Square.draw/1)
-      |> Enum.join("│")
-
-    label <> " │" <> row <> "│\n"
+  def zero_pad(n, len) when is_integer(n) do
+    n |> to_string |> String.rjust(len, ?0)
   end
 
-  defp zero_pad(n, length) do
-    n |> to_string |> String.rjust(length, ?0)
-  end
-
-  defp get_row(board, row) do
-    size = size(board)
-    offset =
-      case row do
-        0 -> 0
-        _ -> row * size
-      end
-    Enum.slice(board, offset, size)
+  def get_row_squares(grid, row) do
+    grid
+    |> Stream.filter(fn {coord, _} -> match?({^row, _} , coord) end)
+    |> Enum.sort_by(fn {coord, _} -> coord end)
+    |> Enum.map(fn {_, square} -> square end)
   end
 end
