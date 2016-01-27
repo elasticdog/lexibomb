@@ -11,13 +11,17 @@ defmodule LexibombServer.Board do
   @bomb_count 22
 
   def new(size \\ @default_size) do
-    squares = empty_board(size) |> deactivate_border
+    border = 2
+    squares =
+      empty_board(size + border)
+      |> deactivate_border
+
     Agent.start_link(fn -> %Board{squares: squares} end)
   end
 
   def empty_board(size) do
-    for row <- 0 .. (size + 1),
-        col <- 0 .. (size + 1),
+    for row <- 0 .. (size - 1),
+        col <- 0 .. (size - 1),
         into: %{},
         do: {{row, col}, %Square{}}
   end
