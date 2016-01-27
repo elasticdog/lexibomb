@@ -10,18 +10,25 @@ defmodule LexibombServer.Board.Square do
   ]
 
   @inactive "#"
-  @bomb_symbol "●"
-  @adjacent_bomb_symbols { "◦", "│", "╎", "┆", "┊", "†", "‡", "¤", "*" }
 
   def deactivate(square) do
     %{square | revealed?: true, tile: @inactive}
   end
 
-  defp inactive?(square) do
+  def inactive?(square) do
     square.tile === @inactive
   end
 
-  def draw(square) do
+  def reveal(square) do
+    %{square | revealed?: true}
+  end
+end
+
+defimpl Inspect, for: LexibombServer.Board.Square do
+  @bomb_symbol "●"
+  @adjacent_bomb_symbols { "◦", "│", "╎", "┆", "┊", "†", "‡", "¤", "*" }
+
+  def inspect(square, _opts) do
     if square.revealed? do
       "#{bomb_symbol(square)}#{square.tile}" |> String.ljust(3)
     else
