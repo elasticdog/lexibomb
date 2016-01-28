@@ -77,11 +77,10 @@ defmodule LexibombServer.Board do
     Agent.get(pid, &(&1))
   end
 
-  @doc """
-  Reveal all the squares on a `board` for debugging.
-  """
-  @spec reveal(Board.t) :: Board.t
-  def reveal(board) do
+  # Reveal all the squares on a `board` for debugging.
+  @doc false
+  @spec __reveal__(Board.t) :: Board.t
+  def __reveal__(board) do
     new_grid =
       board.grid
       |> Enum.into(%{}, fn {coord, square} ->
