@@ -63,7 +63,7 @@
         LexibombServer.Utils
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/6efd88fe937a73e5a1d9d12a89605c62b64312b6/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/515b0ef59b75f27bd2a2a21a5e1d44a4ebdac93b/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -105,7 +105,7 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#pad_line/2">pad_line(line, pad \\ 0)</a>
+    <a href="#first_or_last?/2">first_or_last?(index, size)</a>
   </div>
   
 </div>
@@ -143,11 +143,20 @@
     </a>
     <span class="signature">draw_grid_line(size, atom)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/6efd88fe937a73e5a1d9d12a89605c62b64312b6/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L6" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/515b0ef59b75f27bd2a2a21a5e1d44a4ebdac93b/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L7" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">draw_grid_line(pos_integer, :top | :middle | :bottom) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     
@@ -160,28 +169,46 @@
     </a>
     <span class="signature">draw_segments(strings, sep \\ &quot;│&quot;)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/6efd88fe937a73e5a1d9d12a89605c62b64312b6/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L24" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/515b0ef59b75f27bd2a2a21a5e1d44a4ebdac93b/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L24" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">draw_segments([<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>], <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
     
   </section>
 </div>
-<div class="detail" id="pad_line/2">
+<div class="detail" id="first_or_last?/2">
   <div class="detail-header">
-    <a href="#pad_line/2" class="detail-link" title="Link to this function">
+    <a href="#first_or_last?/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">pad_line(line, pad \\ 0)</span>
+    <span class="signature">first_or_last?(index, size)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/6efd88fe937a73e5a1d9d12a89605c62b64312b6/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L20" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/515b0ef59b75f27bd2a2a21a5e1d44a4ebdac93b/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L29" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">first_or_last?(non_neg_integer, non_neg_integer) :: boolean</code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     
@@ -194,11 +221,20 @@
     </a>
     <span class="signature">zero_pad(n, len)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/6efd88fe937a73e5a1d9d12a89605c62b64312b6/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L28" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/515b0ef59b75f27bd2a2a21a5e1d44a4ebdac93b/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L41" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">zero_pad(non_neg_integer, non_neg_integer) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     
