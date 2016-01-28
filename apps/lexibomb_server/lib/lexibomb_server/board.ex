@@ -8,7 +8,9 @@ defmodule LexibombServer.Board do
   alias LexibombServer.Board.Square
   alias LexibombServer.Utils
 
-  @type coord :: {non_neg_integer, non_neg_integer}
+  @type row :: non_neg_integer
+  @type col :: non_neg_integer
+  @type coord :: {row, col}
   @type grid :: %{coord => Square.t}
   @type t :: %{grid: grid}
 
