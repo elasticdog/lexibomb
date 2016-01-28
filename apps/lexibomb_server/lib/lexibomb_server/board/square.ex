@@ -9,7 +9,7 @@ defmodule LexibombServer.Board.Square do
     tile: "",
   ]
 
-  @inactive "#"
+  @inactive "█"
 
   def deactivate(square) do
     %{square | revealed?: true, tile: @inactive}
