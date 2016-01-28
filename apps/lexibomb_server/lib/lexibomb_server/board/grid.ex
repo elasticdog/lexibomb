@@ -59,9 +59,9 @@ defmodule LexibombServer.Board.Grid do
     Map.update!(grid, coord, &Square.deactivate/1)
   end
 
-  @spec set_bomb(Grid.t, coord) :: Grid.t
-  def set_bomb(grid, coord) do
-    Map.update!(grid, coord, &Square.set_bomb/1)
+  @spec place_bomb(Grid.t, coord) :: Grid.t
+  def place_bomb(grid, coord) do
+    Map.update!(grid, coord, &Square.place_bomb/1)
   end
 
   # Reveal all the squares on a `grid` for debugging.
