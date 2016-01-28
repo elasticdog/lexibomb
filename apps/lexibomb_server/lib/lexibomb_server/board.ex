@@ -70,7 +70,7 @@ defmodule LexibombServer.Board do
   end
 
   def deactivate(coord, grid) do
-    grid |> Map.update!(coord, &Square.deactivate/1)
+    Map.update!(grid, coord, &Square.deactivate/1)
   end
 
   def get(pid) do
