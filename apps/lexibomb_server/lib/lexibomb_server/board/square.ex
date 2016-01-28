@@ -9,6 +9,13 @@ defmodule LexibombServer.Board.Square do
     tile: "",
   ]
 
+  @type t :: %{
+    adjacent_bombs: non_neg_integer,
+    bomb?: boolean,
+    revealed?: boolean,
+    tile: String.t,
+  }
+
   @inactive "█"
 
   def deactivate(square) do
