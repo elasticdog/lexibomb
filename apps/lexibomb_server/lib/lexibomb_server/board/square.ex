@@ -24,6 +24,7 @@ defmodule LexibombServer.Board.Square do
   end
 end
 
+
 defimpl Inspect, for: LexibombServer.Board.Square do
   @bomb_symbol "●"
   @adjacent_bomb_symbols { "◦", "│", "╎", "┆", "┊", "†", "‡", "¤", "*" }

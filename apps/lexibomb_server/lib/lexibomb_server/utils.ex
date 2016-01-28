@@ -17,11 +17,15 @@ defmodule LexibombServer.Utils do
     Enum.join(separators, "───")
   end
 
-  def to_padded_line(line, pad \\ 0) do
+  def pad_line(line, pad \\ 0) do
     String.duplicate(" ", pad) <> line <> "\n"
   end
 
   def draw_segments(strings, sep \\ "│") do
     sep <> Enum.join(strings, sep) <> sep
+  end
+
+  def zero_pad(n, len) when is_integer(n) do
+    n |> to_string |> String.rjust(len, ?0)
   end
 end

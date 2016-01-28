@@ -72,57 +72,82 @@ defmodule LexibombServer.Board do
   def get(pid) do
     Agent.get(pid, &(&1))
   end
+end
 
-  def debug(board) do
-    grid_size = size(board.grid)
-    border = 2
 
-    header = draw_header(grid_size - border)
-    top = Utils.draw_grid_line(grid_size, :top) |> Utils.to_padded_line(3)
-    middle = draw_all_rows(board.grid)
-    bottom = Utils.draw_grid_line(grid_size, :bottom) |> Utils.to_padded_line(3)
+defimpl Inspect, for: LexibombServer.Board do
+  alias LexibombServer.Utils
 
-    header <> top <> middle <> bottom
+  import LexibombServer.Board, only: [
+    size: 1,
+    first_or_last?: 2,
+  ]
+
+  def inspect(board, _opts) do
+    draw(board.grid)
   end
 
-  def draw_header(size) do
+  def draw(grid) do
+    label_width = 3
+    space_width = 4
+    line_width =
+      label_width + (size(grid) * space_width) + 1
+
+    grid
+    |> render_into_list
+    |> Stream.map(&String.rjust(&1, line_width))
+    |> Enum.join("\n")
+  end
+
+  def render_into_list(grid) do
+    size = size(grid)
+
+    header = header(size - 2)
+    top    = Utils.draw_grid_line(size, :top)
+    middle = collect_rows(grid)
+    bottom = Utils.draw_grid_line(size, :bottom)
+
+    [header] ++ [top] ++ middle ++ [bottom]
+  end
+
+  def header(size) do
     last_col = ?a + size - 1
+    spacer = "   "
+    offset = "      "
 
     Enum.to_list(?a .. last_col)
     |> List.to_string
     |> String.graphemes
-    |> Enum.join("   ")
-    |> Utils.to_padded_line(9)
+    |> Enum.join(spacer)
+    |> Kernel.<>(offset)
   end
 
-  def draw_all_rows(grid) do
-    grid_size = size(grid)
-    grid_line =
-      grid_size
-      |> Utils.draw_grid_line(:middle)
-      |> Utils.to_padded_line(3)
+  def collect_rows(grid) do
+    size = size(grid)
+    grid_line = Utils.draw_grid_line(size, :middle)
 
+    grid
+    |> chunk_by_rows(size)
+    |> Stream.map(&Utils.draw_segments/1)
+    |> label_rows(size)
+    |> Enum.intersperse(grid_line)
+  end
+
+  def chunk_by_rows(grid, count) do
     grid
     |> Enum.sort_by(fn {coord, _} -> coord end)
     |> Stream.map(fn {_, square} -> inspect(square) end)
-    |> Stream.chunk(grid_size)
-    |> Stream.map(&Utils.draw_segments/1)
-    |> label_lines(grid_size)
-    |> Enum.join(grid_line)
+    |> Stream.chunk(count)
   end
 
-  def label_lines(rows, grid_size) do
+  def label_rows(rows, grid_size) do
     rows
     |> Stream.with_index
     |> Stream.map(fn {row, index} ->
          label? = !first_or_last?(index, grid_size)
-         label = if label?, do: zero_pad(index, 2), else: "  "
+         label = if label?, do: Utils.zero_pad(index, 2), else: "  "
 
-         label <> Utils.to_padded_line(row, 1)
+         "#{label} #{row}"
        end)
-  end
-
-  def zero_pad(n, len) when is_integer(n) do
-    n |> to_string |> String.rjust(len, ?0)
   end
 end
