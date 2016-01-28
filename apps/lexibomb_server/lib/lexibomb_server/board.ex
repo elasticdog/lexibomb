@@ -79,15 +79,15 @@ defimpl Inspect, for: LexibombServer.Board do
   alias LexibombServer.Utils
 
   import LexibombServer.Board, only: [
-    size: 1,
     first_or_last?: 2,
+    size: 1,
   ]
 
   def inspect(board, _opts) do
-    draw(board.grid)
+    render(board.grid)
   end
 
-  def draw(grid) do
+  defp render(grid) do
     label_width = 3
     space_width = 4
     line_width =
@@ -99,7 +99,7 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Enum.join("\n")
   end
 
-  def render_into_list(grid) do
+  defp render_into_list(grid) do
     size = size(grid)
 
     header = header(size - 2)
@@ -110,7 +110,7 @@ defimpl Inspect, for: LexibombServer.Board do
     [header] ++ [top] ++ middle ++ [bottom]
   end
 
-  def header(size) do
+  defp header(size) do
     last_col = ?a + size - 1
     spacer = "   "
     offset = "      "
@@ -122,7 +122,7 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Kernel.<>(offset)
   end
 
-  def collect_rows(grid) do
+  defp collect_rows(grid) do
     size = size(grid)
     grid_line = Utils.draw_grid_line(size, :middle)
 
@@ -133,14 +133,14 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Enum.intersperse(grid_line)
   end
 
-  def chunk_by_rows(grid, count) do
+  defp chunk_by_rows(grid, count) do
     grid
     |> Enum.sort_by(fn {coord, _} -> coord end)
     |> Stream.map(fn {_, square} -> inspect(square) end)
     |> Stream.chunk(count)
   end
 
-  def label_rows(rows, grid_size) do
+  defp label_rows(rows, grid_size) do
     rows
     |> Stream.with_index
     |> Stream.map(fn {row, index} ->
