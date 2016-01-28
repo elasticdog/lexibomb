@@ -88,6 +88,11 @@ defmodule LexibombServer.Board do
     Agent.get(pid, &(&1))
   end
 
+  @spec set(pid, Board.t) :: :ok
+  def set(pid, board) do
+    Agent.update(pid, fn _ -> board end)
+  end
+
   # Reveal all the squares on a `board` for debugging.
   @doc false
   @spec __reveal__(Board.t) :: Board.t
