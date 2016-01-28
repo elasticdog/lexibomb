@@ -34,6 +34,11 @@ defmodule LexibombServer.Board.Square do
   def reveal(square) do
     %{square | revealed?: true}
   end
+
+  @spec set_bomb(Square.t) :: Square.t
+  def set_bomb(square) do
+    %{square | bomb?: true}
+  end
 end
 
 

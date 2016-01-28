@@ -81,6 +81,11 @@ defmodule LexibombServer.Board do
     Agent.update(pid, fn _ -> board end)
   end
 
+  @spec set_bomb(grid, coord) :: grid
+  def set_bomb(grid, coord) do
+    Map.update!(grid, coord, &Square.set_bomb/1)
+  end
+
   # Reveal all the squares on a `board` for debugging.
   @doc false
   @spec __reveal__(Board.t) :: Board.t
