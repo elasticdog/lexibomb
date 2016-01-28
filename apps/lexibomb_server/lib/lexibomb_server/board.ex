@@ -15,11 +15,13 @@ defmodule LexibombServer.Board do
   @default_size 15
   @bomb_count 22
 
+  @spec new(pos_integer) :: Agent.on_start
   def new(size \\ @default_size) do
     board = %Board{grid: initialize_grid(size)}
     Agent.start_link(fn -> board end)
   end
 
+  @spec initialize_grid(pos_integer) :: grid
   def initialize_grid(size) do
     border = 2
 
@@ -27,6 +29,7 @@ defmodule LexibombServer.Board do
     |> deactivate_border
   end
 
+  @spec empty_grid(pos_integer) :: grid
   def empty_grid(size) do
     for row <- 0 .. (size - 1),
         col <- 0 .. (size - 1),
@@ -34,6 +37,7 @@ defmodule LexibombServer.Board do
         do: {{row, col}, %Square{}}
   end
 
+  @spec deactivate_border(grid) :: grid
   def deactivate_border(grid) do
     coords = Map.keys(grid)
     grid_size = size(grid)
@@ -42,6 +46,7 @@ defmodule LexibombServer.Board do
     Enum.reduce(border_coords, grid, &deactivate/2)
   end
 
+  @spec size(grid) :: pos_integer
   def size(grid) do
     grid
     |> map_size
@@ -49,6 +54,7 @@ defmodule LexibombServer.Board do
     |> round
   end
 
+  @spec border_square?(coord, pos_integer) :: boolean
   def border_square?(coord, grid_size) do
     {row, col} = coord
     cond do
@@ -58,6 +64,7 @@ defmodule LexibombServer.Board do
     end
   end
 
+  @spec first_or_last?(non_neg_integer, non_neg_integer) :: boolean
   def first_or_last?(index, size) do
     first = 0
     last = size - 1
@@ -69,10 +76,12 @@ defmodule LexibombServer.Board do
     end
   end
 
+  @spec deactivate(coord, grid) :: grid
   def deactivate(coord, grid) do
     Map.update!(grid, coord, &Square.deactivate/1)
   end
 
+  @spec get(pid) :: Board.t
   def get(pid) do
     Agent.get(pid, &(&1))
   end
@@ -93,6 +102,7 @@ end
 
 
 defimpl Inspect, for: LexibombServer.Board do
+  alias LexibombServer.Board
   alias LexibombServer.Utils
 
   import LexibombServer.Board, only: [
@@ -100,10 +110,12 @@ defimpl Inspect, for: LexibombServer.Board do
     size: 1,
   ]
 
+  @spec inspect(Board.t, Keyword.t) :: String.t
   def inspect(board, _opts) do
     render(board.grid)
   end
 
+  @spec render(Board.grid) :: String.t
   defp render(grid) do
     label_width = 3
     space_width = 4
@@ -116,6 +128,7 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Enum.join("\n")
   end
 
+  @spec render_into_list(Board.grid) :: [String.t]
   defp render_into_list(grid) do
     size = size(grid)
 
@@ -127,6 +140,7 @@ defimpl Inspect, for: LexibombServer.Board do
     [header] ++ [top] ++ middle ++ [bottom]
   end
 
+  @spec header(pos_integer) :: String.t
   defp header(size) do
     last_col = ?a + size - 1
     spacer = "   "
@@ -139,6 +153,7 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Kernel.<>(offset)
   end
 
+  @spec collect_rows(Board.grid) :: [String.t]
   defp collect_rows(grid) do
     size = size(grid)
     grid_line = Utils.draw_grid_line(size, :middle)
@@ -150,6 +165,7 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Enum.intersperse(grid_line)
   end
 
+  @spec chunk_by_rows(Board.grid, pos_integer) :: Enumerable.t
   defp chunk_by_rows(grid, count) do
     grid
     |> Enum.sort_by(fn {coord, _} -> coord end)
@@ -157,6 +173,7 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Stream.chunk(count)
   end
 
+  @spec label_rows(Enumerable.t, pos_integer) :: Enumerable.t
   defp label_rows(rows, grid_size) do
     rows
     |> Stream.with_index
