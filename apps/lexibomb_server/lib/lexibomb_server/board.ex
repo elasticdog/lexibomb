@@ -5,70 +5,17 @@ defmodule LexibombServer.Board do
   defstruct [:grid]
 
   alias LexibombServer.Board
-  alias LexibombServer.Board.Square
-  alias LexibombServer.Utils
+  alias LexibombServer.Board.Grid
 
-  @type row :: non_neg_integer
-  @type col :: non_neg_integer
-  @type coord :: {row, col}
-  @type grid :: %{coord => Square.t}
-  @type t :: %{grid: grid}
+  @type t :: %{grid: Grid.t}
 
   @default_size 15
   @bomb_count 22
 
   @spec new(pos_integer) :: Agent.on_start
   def new(size \\ @default_size) do
-    board = %Board{grid: initialize_grid(size)}
+    board = %Board{grid: Grid.initialize(size)}
     Agent.start_link(fn -> board end)
-  end
-
-  @spec initialize_grid(pos_integer) :: grid
-  def initialize_grid(size) do
-    border = 2
-
-    empty_grid(size + border)
-    |> deactivate_border
-  end
-
-  @spec empty_grid(pos_integer) :: grid
-  def empty_grid(size) do
-    for row <- 0 .. (size - 1),
-        col <- 0 .. (size - 1),
-        into: %{},
-        do: {{row, col}, %Square{}}
-  end
-
-  @spec deactivate_border(grid) :: grid
-  def deactivate_border(grid) do
-    coords = Map.keys(grid)
-    grid_size = size(grid)
-    border_coords = Enum.filter(coords, &border_square?(&1, grid_size))
-
-    Enum.reduce(border_coords, grid, &deactivate/2)
-  end
-
-  @spec size(grid) :: pos_integer
-  def size(grid) do
-    grid
-    |> map_size
-    |> :math.sqrt
-    |> round
-  end
-
-  @spec border_square?(coord, pos_integer) :: boolean
-  def border_square?(coord, grid_size) do
-    {row, col} = coord
-    cond do
-      row |> Utils.first_or_last?(grid_size) -> true
-      col |> Utils.first_or_last?(grid_size) -> true
-      true -> false
-    end
-  end
-
-  @spec deactivate(coord, grid) :: grid
-  def deactivate(coord, grid) do
-    Map.update!(grid, coord, &Square.deactivate/1)
   end
 
   @spec get(pid) :: Board.t
@@ -81,43 +28,37 @@ defmodule LexibombServer.Board do
     Agent.update(pid, fn _ -> board end)
   end
 
-  @spec set_bomb(grid, coord) :: grid
-  def set_bomb(grid, coord) do
-    Map.update!(grid, coord, &Square.set_bomb/1)
+  @spec set_bomb(pid, Grid.coord) :: :ok
+  def set_bomb(pid, coord) do
+    Agent.update(pid, fn board ->
+      %{board | grid: Grid.set_bomb(board.grid, coord)}
+    end)
   end
 
   # Reveal all the squares on a `board` for debugging.
   @doc false
   @spec __reveal__(Board.t) :: Board.t
   def __reveal__(board) do
-    new_grid =
-      board.grid
-      |> Enum.into(%{}, fn {coord, square} ->
-           {coord, Square.reveal(square)}
-         end)
-
-    %{board | grid: new_grid}
+    %{board | grid: Grid.__reveal__(board.grid)}
   end
 end
 
 
 defimpl Inspect, for: LexibombServer.Board do
-  alias LexibombServer.Board
+  alias LexibombServer.Board.Grid
   alias LexibombServer.Utils
 
-  import LexibombServer.Board, only: [size: 1]
-
-  @spec inspect(Board.t, Keyword.t) :: String.t
+  @spec inspect(LexibombServer.Board.t, Keyword.t) :: String.t
   def inspect(board, _opts) do
     render(board.grid)
   end
 
-  @spec render(Board.grid) :: String.t
+  @spec render(Grid.t) :: String.t
   defp render(grid) do
     label_width = 3
     space_width = 4
     line_width =
-      label_width + (size(grid) * space_width) + 1
+      label_width + (Grid.size(grid) * space_width) + 1
 
     grid
     |> render_into_list
@@ -125,9 +66,9 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Enum.join("\n")
   end
 
-  @spec render_into_list(Board.grid) :: [String.t]
+  @spec render_into_list(Grid.t) :: [String.t]
   defp render_into_list(grid) do
-    size = size(grid)
+    size = Grid.size(grid)
 
     header = header(size - 2)
     top    = Utils.draw_grid_line(size, :top)
@@ -150,9 +91,9 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Kernel.<>(offset)
   end
 
-  @spec collect_rows(Board.grid) :: [String.t]
+  @spec collect_rows(Grid.t) :: [String.t]
   defp collect_rows(grid) do
-    size = size(grid)
+    size = Grid.size(grid)
     grid_line = Utils.draw_grid_line(size, :middle)
 
     grid
@@ -162,7 +103,7 @@ defimpl Inspect, for: LexibombServer.Board do
     |> Enum.intersperse(grid_line)
   end
 
-  @spec chunk_by_rows(Board.grid, pos_integer) :: Enumerable.t
+  @spec chunk_by_rows(Grid.t, pos_integer) :: Enumerable.t
   defp chunk_by_rows(grid, count) do
     grid
     |> Enum.sort_by(fn {coord, _} -> coord end)
