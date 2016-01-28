@@ -125,11 +125,4 @@ defmodule LexibombServer.Board do
   def zero_pad(n, len) when is_integer(n) do
     n |> to_string |> String.rjust(len, ?0)
   end
-
-  def get_row_squares(grid, row) do
-    grid
-    |> Stream.filter(fn {coord, _} -> match?({^row, _} , coord) end)
-    |> Enum.sort_by(fn {coord, _} -> coord end)
-    |> Enum.map(fn {_, square} -> square end)
-  end
 end
