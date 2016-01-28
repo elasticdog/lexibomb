@@ -25,6 +25,18 @@ defmodule LexibombServer.Utils do
     sep <> Enum.join(strings, sep) <> sep
   end
 
+  @spec first_or_last?(non_neg_integer, non_neg_integer) :: boolean
+  def first_or_last?(index, size) do
+    first = 0
+    last = size - 1
+
+    case index do
+      ^first -> true
+      ^last -> true
+      _ -> false
+    end
+  end
+
   def zero_pad(n, len) when is_integer(n) do
     n |> to_string |> String.rjust(len, ?0)
   end

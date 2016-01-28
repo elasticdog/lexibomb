@@ -60,21 +60,9 @@ defmodule LexibombServer.Board do
   def border_square?(coord, grid_size) do
     {row, col} = coord
     cond do
-      row |> first_or_last?(grid_size) -> true
-      col |> first_or_last?(grid_size) -> true
+      row |> Utils.first_or_last?(grid_size) -> true
+      col |> Utils.first_or_last?(grid_size) -> true
       true -> false
-    end
-  end
-
-  @spec first_or_last?(non_neg_integer, non_neg_integer) :: boolean
-  def first_or_last?(index, size) do
-    first = 0
-    last = size - 1
-
-    case index do
-      ^first -> true
-      ^last -> true
-      _ -> false
     end
   end
 
@@ -112,10 +100,7 @@ defimpl Inspect, for: LexibombServer.Board do
   alias LexibombServer.Board
   alias LexibombServer.Utils
 
-  import LexibombServer.Board, only: [
-    first_or_last?: 2,
-    size: 1,
-  ]
+  import LexibombServer.Board, only: [size: 1]
 
   @spec inspect(Board.t, Keyword.t) :: String.t
   def inspect(board, _opts) do
@@ -185,7 +170,7 @@ defimpl Inspect, for: LexibombServer.Board do
     rows
     |> Stream.with_index
     |> Stream.map(fn {row, index} ->
-         label? = !first_or_last?(index, grid_size)
+         label? = !Utils.first_or_last?(index, grid_size)
          label = if label?, do: Utils.zero_pad(index, 2), else: "  "
 
          "#{label} #{row}"
