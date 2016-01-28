@@ -17,10 +17,6 @@ defmodule LexibombServer.Utils do
     Enum.join(separators, "───")
   end
 
-  def pad_line(line, pad \\ 0) do
-    String.duplicate(" ", pad) <> line <> "\n"
-  end
-
   def draw_segments(strings, sep \\ "│") do
     sep <> Enum.join(strings, sep) <> sep
   end
