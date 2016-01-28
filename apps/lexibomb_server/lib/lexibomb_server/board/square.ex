@@ -27,7 +27,7 @@ end
 
 defimpl Inspect, for: LexibombServer.Board.Square do
   @bomb_symbol "●"
-  @adjacent_bomb_symbols { "◦", "│", "╎", "┆", "┊", "†", "‡", "¤", "*" }
+  @adjacent_bomb_symbols { "·", "│", "╎", "┆", "┊", "†", "‡", "¤", "*" }
 
   def inspect(square, _opts) do
     if square.revealed? do
