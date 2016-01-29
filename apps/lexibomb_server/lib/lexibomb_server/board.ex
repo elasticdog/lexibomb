@@ -36,6 +36,13 @@ defmodule LexibombServer.Board do
     end)
   end
 
+  @spec size(pid) :: pos_integer
+  def size(pid) do
+    Agent.get(pid, fn board ->
+      Grid.board_size(board.grid)
+    end)
+  end
+
   # Reveal all the squares on a `board` for debugging.
   @doc false
   @spec __reveal__(Board.t) :: Board.t

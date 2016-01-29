@@ -11,10 +11,11 @@ defmodule LexibombServer.Board.Grid do
   @type coord :: {row, col}
   @type t :: %{coord => Square.t}
 
+  @border = 2
+
   @spec initialize(pos_integer) :: Grid.t
   def initialize(size) do
-    border = 2
-    empty_grid(size + border) |> deactivate_border
+    empty_grid(size + @border) |> deactivate_border
   end
 
   @spec empty_grid(pos_integer) :: Grid.t
@@ -32,6 +33,11 @@ defmodule LexibombServer.Board.Grid do
     border_coords = Enum.filter(coords, &border_square?(&1, grid_size))
 
     Enum.reduce(border_coords, grid, &deactivate/2)
+  end
+
+  @spec board_size(Grid.t) :: pos_integer
+  def board_size(grid) do
+    size(grid) - @border
   end
 
   @spec size(Grid.t) :: pos_integer
