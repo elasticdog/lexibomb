@@ -65,19 +65,9 @@ end
 
 defimpl Inspect, for: LexibombServer.Board.Square do
   alias LexibombServer.Board.Square
-  alias LexibombServer.Utils
 
   @spec inspect(Square.t, Keyword.t) :: String.t
   def inspect(square, _opts) do
-    square =
-      Square.__render_state__(square)
-      |> Utils.draw_in_box
-      |> Utils.indent(2)
-
-    """
-    #Square<
-    #{square}
-    >
-    """
+    "#Square<[#{Square.__render_state__(square)}]>"
   end
 end
