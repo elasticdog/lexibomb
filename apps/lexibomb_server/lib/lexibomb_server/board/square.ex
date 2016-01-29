@@ -25,9 +25,9 @@ defmodule LexibombServer.Board.Square do
     %{square | revealed?: true, tile: @inactive}
   end
 
-  @spec inactive?(Square.t) :: boolean
-  def inactive?(square) do
-    square.tile === @inactive
+  @spec active?(Square.t) :: boolean
+  def active?(square) do
+    square.tile !== @inactive
   end
 
   @spec reveal(Square.t) :: Square.t
