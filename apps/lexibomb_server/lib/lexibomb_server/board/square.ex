@@ -70,7 +70,7 @@ defimpl Inspect, for: LexibombServer.Board.Square do
       |> Utils.indent(2)
 
     """
-    #Square>
+    #Square<
     #{square}
     >
     """
