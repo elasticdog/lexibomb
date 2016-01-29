@@ -12,8 +12,8 @@ defmodule LexibombServer.Board do
   @default_size 15
   @bomb_count 22
 
-  @spec new(pos_integer) :: Agent.on_start
-  def new(size \\ @default_size) do
+  @spec start_link(pos_integer) :: Agent.on_start
+  def start_link(size \\ @default_size) do
     board = %Board{grid: Grid.initialize(size)}
     Agent.start_link(fn -> board end)
   end
