@@ -63,15 +63,23 @@ defimpl Inspect, for: LexibombServer.Board do
 
   @spec render(Grid.t) :: String.t
   defp render(grid) do
+    indent = 2
     label_width = 3
     space_width = 4
     line_width =
-      label_width + (Grid.size(grid) * space_width) + 1
+      indent + label_width + (Grid.size(grid) * space_width) + 1
 
-    grid
-    |> render_into_list
-    |> Stream.map(&String.rjust(&1, line_width))
-    |> Enum.join("\n")
+    board =
+      grid
+      |> render_into_list
+      |> Stream.map(&String.rjust(&1, line_width))
+      |> Enum.join("\n")
+
+    """
+    #Board<
+    #{board}
+    >
+    """
   end
 
   @spec render_into_list(Grid.t) :: [String.t]
