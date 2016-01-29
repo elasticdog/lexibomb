@@ -64,7 +64,35 @@ defmodule LexibombServer.Board.Grid do
 
   @spec place_bomb(Grid.t, coord) :: Grid.t
   def place_bomb(grid, coord) do
-    Map.update!(grid, coord, &Square.place_bomb/1)
+    square = Map.get(grid, coord)
+
+    if square.bomb? do
+      grid
+    else
+      grid
+      |> Map.update!(coord, &Square.place_bomb/1)
+      |> inc_adjacent_bombs(adjacent_coords(coord))
+    end
+  end
+
+  @spec inc_adjacent_bombs(Grid.t, [coord]) :: Grid.t
+  def inc_adjacent_bombs(grid, [head|tail]) do
+    grid
+    |> Map.update!(head, &Square.inc_adjacent_bombs/1)
+    |> inc_adjacent_bombs(tail)
+  end
+  def inc_adjacent_bombs(grid, []), do: grid
+
+  @spec adjacent_coords(coord) :: [coord]
+  def adjacent_coords({row, col}) do
+    [{row-1, col-1},
+     {row-1, col  },
+     {row-1, col+1},
+     {row,   col-1},
+     {row,   col+1},
+     {row+1, col-1},
+     {row+1, col  },
+     {row+1, col+1}]
   end
 
   # Reveal all the squares on a `grid` for debugging.

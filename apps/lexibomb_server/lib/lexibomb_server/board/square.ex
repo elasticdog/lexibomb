@@ -32,6 +32,11 @@ defmodule LexibombServer.Board.Square do
     square.tile !== @inactive
   end
 
+  @spec inc_adjacent_bombs(Square.t) :: Square.t
+  def inc_adjacent_bombs(square) do
+    %{square | adjacent_bombs: square.adjacent_bombs + 1}
+  end
+
   @spec reveal(Square.t) :: Square.t
   def reveal(square) do
     %{square | revealed?: true}

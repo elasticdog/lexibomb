@@ -23,8 +23,8 @@ defmodule LexibombServer.Board do
     Agent.get(pid, &(&1))
   end
 
-  @spec set(pid, Board.t) :: :ok
-  def set(pid, board) do
+  @spec set(Board.t, pid) :: :ok
+  def set(board, pid) do
     Agent.update(pid, fn _ -> board end)
   end
 
