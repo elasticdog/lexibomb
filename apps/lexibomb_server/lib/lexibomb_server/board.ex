@@ -28,10 +28,11 @@ defmodule LexibombServer.Board do
     Agent.update(pid, fn _ -> board end)
   end
 
-  @spec place_bomb(pid, Grid.coord) :: :ok
+  @spec place_bomb(pid, Grid.coord) :: Board.t
   def place_bomb(pid, coord) do
-    Agent.update(pid, fn board ->
-      %{board | grid: Grid.place_bomb(board.grid, coord)}
+    Agent.get_and_update(pid, fn board ->
+      new_board = %{board | grid: Grid.place_bomb(board.grid, coord)}
+      {new_board, new_board}
     end)
   end
 
