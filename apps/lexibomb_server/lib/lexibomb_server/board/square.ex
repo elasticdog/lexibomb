@@ -18,6 +18,8 @@ defmodule LexibombServer.Board.Square do
     tile: String.t,
   }
 
+  @adjacent_bomb_symbols { "·", "│", "╎", "┆", "┊", "†", "‡", "¤", "*" }
+  @bomb_symbol "●"
   @inactive "█"
 
   @spec deactivate(Square.t) :: Square.t
@@ -39,17 +41,10 @@ defmodule LexibombServer.Board.Square do
   def place_bomb(square) do
     %{square | bomb?: true}
   end
-end
 
-
-defimpl Inspect, for: LexibombServer.Board.Square do
-  alias LexibombServer.Board.Square
-
-  @bomb_symbol "●"
-  @adjacent_bomb_symbols { "·", "│", "╎", "┆", "┊", "†", "‡", "¤", "*" }
-
-  @spec inspect(Square.t, Keyword.t) :: String.t
-  def inspect(square, _opts) do
+  @doc false
+  @spec __render_state__(Square.t) :: String.t
+  def __render_state__(square) do
     if square.revealed? do
       adjacent_bomb_count = elem(@adjacent_bomb_symbols, square.adjacent_bombs)
       tile = if square.tile === "", do: " ", else: square.tile
@@ -59,5 +54,25 @@ defimpl Inspect, for: LexibombServer.Board.Square do
     else
       "   "
     end
+  end
+end
+
+
+defimpl Inspect, for: LexibombServer.Board.Square do
+  alias LexibombServer.Board.Square
+  alias LexibombServer.Utils
+
+  @spec inspect(Square.t, Keyword.t) :: String.t
+  def inspect(square, _opts) do
+    square =
+      Square.__render_state__(square)
+      |> Utils.draw_in_box
+      |> Utils.indent(2)
+
+    """
+    #Square>
+    #{square}
+    >
+    """
   end
 end

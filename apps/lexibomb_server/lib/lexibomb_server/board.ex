@@ -53,7 +53,7 @@ end
 
 
 defimpl Inspect, for: LexibombServer.Board do
-  alias LexibombServer.Board.Grid
+  alias LexibombServer.Board.{Grid, Square}
   alias LexibombServer.Utils
 
   @spec inspect(LexibombServer.Board.t, Keyword.t) :: String.t
@@ -80,6 +80,7 @@ defimpl Inspect, for: LexibombServer.Board do
     #{board}
     >
     """
+    |> String.rstrip
   end
 
   @spec render_into_list(Grid.t) :: [String.t]
@@ -123,7 +124,7 @@ defimpl Inspect, for: LexibombServer.Board do
   defp chunk_by_rows(grid, count) do
     grid
     |> Enum.sort_by(fn {coord, _} -> coord end)
-    |> Stream.map(fn {_, square} -> inspect(square) end)
+    |> Stream.map(fn {_, square} -> Square.__render_state__(square) end)
     |> Stream.chunk(count)
   end
 

@@ -7,6 +7,20 @@ defmodule LexibombServer.Utils do
   @middle_line_set {"├", "┼", "┤"}
   @bottom_line_set {"└", "┴", "┘"}
 
+  def draw_in_box(string) do
+    width  = String.length(string)
+    top    = draw_grid_line(1, :top, width)
+    middle = draw_segments([string])
+    bottom = draw_grid_line(1, :bottom, width)
+
+    """
+    #{top}
+    #{middle}
+    #{bottom}
+    """
+    |> String.rstrip
+  end
+
   @spec draw_grid_line(pos_integer, :top | :middle | :bottom, pos_integer) :: String.t
   def draw_grid_line(count, line_set, item_width \\ 3)
   def draw_grid_line(count, :top, item_width) do
@@ -55,6 +69,12 @@ defmodule LexibombServer.Utils do
       ^last -> true
       _ -> false
     end
+  end
+
+  @spec indent(String.t, pos_integer) :: String.t
+  def indent(string, amount) do
+    indentation = String.duplicate(" ", amount)
+    indentation <> String.replace(string, "\n", "\n" <> indentation)
   end
 
   @spec zero_pad(non_neg_integer, non_neg_integer) :: String.t

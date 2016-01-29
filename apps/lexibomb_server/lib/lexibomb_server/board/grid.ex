@@ -2,8 +2,7 @@ defmodule LexibombServer.Board.Grid do
   @moduledoc """
   """
 
-  alias LexibombServer.Board.Grid
-  alias LexibombServer.Board.Square
+  alias LexibombServer.Board.{Grid, Square}
   alias LexibombServer.Utils
 
   @type row :: non_neg_integer
