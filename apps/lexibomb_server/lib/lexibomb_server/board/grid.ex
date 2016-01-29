@@ -62,6 +62,13 @@ defmodule LexibombServer.Board.Grid do
     Map.update!(grid, coord, &Square.deactivate/1)
   end
 
+  @spec active_squares(Grid.t) :: Grid.t
+  def active_squares(grid) do
+    grid
+    |> Stream.filter(fn {_, square} -> Square.active?(square) end)
+    |> Map.new
+  end
+
   @spec place_bomb(Grid.t, coord) :: Grid.t
   def place_bomb(grid, coord) do
     square = Map.get(grid, coord)
@@ -94,6 +101,14 @@ defmodule LexibombServer.Board.Grid do
      {row+1, col  },
      {row+1, col+1}]
   end
+
+  @spec place_bombs(Grid.t, [coord]) :: Grid.t
+  def place_bombs(grid, [head|tail]) do
+    grid
+    |> place_bomb(head)
+    |> place_bombs(tail)
+  end
+  def place_bombs(grid, []), do: grid
 
   # Reveal all the squares on a `grid` for debugging.
   @doc false

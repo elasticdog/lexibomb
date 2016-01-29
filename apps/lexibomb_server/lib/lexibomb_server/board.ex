@@ -36,6 +36,26 @@ defmodule LexibombServer.Board do
     end)
   end
 
+  @spec place_bombs(pid, [Grid.coord]) :: Board.t
+  def place_bombs(pid, coords) do
+    Agent.get_and_update(pid, fn board ->
+      new_board = %{board | grid: Grid.place_bombs(board.grid, coords)}
+      {new_board, new_board}
+    end)
+  end
+
+  @spec place_random_bombs(pid, pos_integer) :: Board.t
+  def place_random_bombs(pid, count \\ @bomb_count) do
+    board = get(pid)
+    coords =
+      board.grid
+      |> Grid.active_squares
+      |> Map.keys
+      |> Enum.take_random(count)
+
+    place_bombs(pid, coords)
+  end
+
   @spec size(pid) :: pos_integer
   def size(pid) do
     Agent.get(pid, fn board ->
