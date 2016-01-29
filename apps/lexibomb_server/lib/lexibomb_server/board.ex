@@ -65,7 +65,13 @@ defmodule LexibombServer.Board do
 
   # Reveal all the squares on a `board` for debugging.
   @doc false
-  @spec __reveal__(Board.t) :: Board.t
+  @spec __reveal__(Board.t | pid) :: Board.t
+  def __reveal__(pid) when is_pid(pid) do
+    Agent.get_and_update(pid, fn board ->
+      new_board = __reveal__(board)
+      {new_board, new_board}
+    end)
+  end
   def __reveal__(board) do
     %{board | grid: Grid.__reveal__(board.grid)}
   end
