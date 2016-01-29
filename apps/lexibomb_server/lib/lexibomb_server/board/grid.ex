@@ -11,7 +11,7 @@ defmodule LexibombServer.Board.Grid do
   @type coord :: {row, col}
   @type t :: %{coord => Square.t}
 
-  @border = 2
+  @border 2
 
   @spec initialize(pos_integer) :: Grid.t
   def initialize(size) do
