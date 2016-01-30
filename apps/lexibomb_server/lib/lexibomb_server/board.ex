@@ -105,7 +105,8 @@ defimpl Inspect, for: LexibombServer.Board do
     render(board.grid)
   end
 
-  @spec render(Grid.t) :: String.t
+  @spec render(Grid.t | nil) :: String.t
+  defp render(nil), do: "#Board<[]>"
   defp render(grid) do
     indent = 2
     label_width = 3
