@@ -79,7 +79,7 @@ defmodule LexibombServer.Utils do
 
   @spec seed_the_prng({integer, integer, integer}) :: :rand.state
   def seed_the_prng(seed) do
-    _ = :rand.seed(:exsplus, seed)
+    :rand.seed(:exsplus, seed)
   end
 
   # http://erlang.org/doc/man/random.html#seed-3
