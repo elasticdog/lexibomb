@@ -4,7 +4,6 @@ defmodule LexibombServer.Board do
 
   defstruct [:grid, :seed]
 
-  alias LexibombServer.Board
   alias LexibombServer.Board.Grid
   alias LexibombServer.Utils
 
@@ -13,20 +12,27 @@ defmodule LexibombServer.Board do
   @default_size 15
   @bomb_count 22
 
-  @spec start_link(pos_integer) :: Agent.on_start
-  def start_link(size \\ @default_size) do
-    seed = Utils.unique_seed
-    start_link(size, seed)
+  @spec start_link :: Agent.on_start
+  def start_link do
+    Agent.start_link(fn -> new end)
   end
 
-  @spec start_link(pos_integer, {integer, integer, integer}) :: Agent.on_start
-  def start_link(size, seed) do
-    board = %Board{
+  @spec start_link(t) :: Agent.on_start
+  def start_link(board) do
+    Agent.start_link(fn -> board end)
+  end
+
+  @spec new(pos_integer) :: t
+  def new(size \\ @default_size) do
+    new(size, Utils.unique_seed)
+  end
+
+  @spec new(pos_integer, {integer, integer, integer}) :: t
+  def new(size, seed) do
+    %LexibombServer.Board{
       grid: Grid.initialize(size),
       seed: seed,
     }
-
-    Agent.start_link(fn -> board end)
   end
 
   @spec get(pid) :: t
