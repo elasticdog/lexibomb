@@ -63,7 +63,7 @@
         LexibombServer.Utils
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/e2e5cff23196b2b2014facf86b750c7daef57543/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -123,6 +123,18 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#seed_the_prng/1">seed_the_prng(seed)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#unique_seed/0">unique_seed()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#zero_pad/2">zero_pad(n, len)</a>
   </div>
   
@@ -155,7 +167,7 @@
     </a>
     <span class="signature">draw_grid_line(count, line_set, item_width \\ 3)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/e2e5cff23196b2b2014facf86b750c7daef57543/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L25" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L25" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -181,7 +193,7 @@
     </a>
     <span class="signature">draw_in_box(string)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/e2e5cff23196b2b2014facf86b750c7daef57543/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L10" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L10" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -198,7 +210,7 @@
     </a>
     <span class="signature">draw_segments(strings, sep \\ &quot;│&quot;)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/e2e5cff23196b2b2014facf86b750c7daef57543/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L58" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L58" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -224,7 +236,7 @@
     </a>
     <span class="signature">first_or_last?(index, size)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/e2e5cff23196b2b2014facf86b750c7daef57543/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L63" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L63" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -250,7 +262,7 @@
     </a>
     <span class="signature">indent(string, amount)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/e2e5cff23196b2b2014facf86b750c7daef57543/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L75" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L75" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -269,6 +281,58 @@
     
   </section>
 </div>
+<div class="detail" id="seed_the_prng/1">
+  <div class="detail-header">
+    <a href="#seed_the_prng/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">seed_the_prng(seed)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L81" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">seed_the_prng({integer, integer, integer}) :: :rand.state</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="unique_seed/0">
+  <div class="detail-header">
+    <a href="#unique_seed/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">unique_seed()</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L87" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">unique_seed :: {non_neg_integer, integer, integer}</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
 <div class="detail" id="zero_pad/2">
   <div class="detail-header">
     <a href="#zero_pad/2" class="detail-link" title="Link to this function">
@@ -276,7 +340,7 @@
     </a>
     <span class="signature">zero_pad(n, len)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/e2e5cff23196b2b2014facf86b750c7daef57543/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L81" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/d6eaad8e7251905cf06efe3fce4eb816154a3dcb/apps/lexibomb_server/lib/lexibomb_server/utils.ex#L96" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
