@@ -29,17 +29,17 @@ defmodule LexibombServer.Board do
     Agent.start_link(fn -> board end)
   end
 
-  @spec get(pid) :: Board.t
+  @spec get(pid) :: t
   def get(pid) do
     Agent.get(pid, &(&1))
   end
 
-  @spec set(Board.t, pid) :: :ok
+  @spec set(t, pid) :: :ok
   def set(board, pid) do
     Agent.update(pid, fn _ -> board end)
   end
 
-  @spec place_bomb(pid, Grid.coord) :: Board.t
+  @spec place_bomb(pid, Grid.coord) :: t
   def place_bomb(pid, coord) do
     Agent.get_and_update(pid, fn board ->
       new_board = %{board | grid: Grid.place_bomb(board.grid, coord)}
@@ -47,7 +47,7 @@ defmodule LexibombServer.Board do
     end)
   end
 
-  @spec place_bombs(pid, [Grid.coord]) :: Board.t
+  @spec place_bombs(pid, [Grid.coord]) :: t
   def place_bombs(pid, coords) do
     Agent.get_and_update(pid, fn board ->
       new_board = %{board | grid: Grid.place_bombs(board.grid, coords)}
@@ -55,7 +55,7 @@ defmodule LexibombServer.Board do
     end)
   end
 
-  @spec place_random_bombs(pid, pos_integer) :: Board.t
+  @spec place_random_bombs(pid, pos_integer) :: t
   def place_random_bombs(pid, count \\ @bomb_count) do
     board = get(pid)
     _ = Utils.seed_the_prng(board.seed)
@@ -77,7 +77,7 @@ defmodule LexibombServer.Board do
 
   # Reveal all the squares on a `board` for debugging.
   @doc false
-  @spec __reveal__(Board.t | pid) :: Board.t
+  @spec __reveal__(t | pid) :: t
   def __reveal__(pid) when is_pid(pid) do
     Agent.get_and_update(pid, fn board ->
       new_board = __reveal__(board)

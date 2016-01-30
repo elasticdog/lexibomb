@@ -77,7 +77,7 @@ defmodule LexibombServer.Utils do
     indentation <> String.replace(string, "\n", "\n" <> indentation)
   end
 
-  @spec seed_the_prng({integer, integer, integer}) :: :rand.state()
+  @spec seed_the_prng({integer, integer, integer}) :: :rand.state
   def seed_the_prng(seed) do
     _ = :rand.seed(:exsplus, seed)
   end

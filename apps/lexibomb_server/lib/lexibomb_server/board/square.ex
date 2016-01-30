@@ -9,8 +9,6 @@ defmodule LexibombServer.Board.Square do
     tile: "",
   ]
 
-  alias LexibombServer.Board.Square
-
   @type t :: %{
     adjacent_bombs: non_neg_integer,
     bomb?: boolean,
@@ -22,33 +20,33 @@ defmodule LexibombServer.Board.Square do
   @bomb_symbol "●"
   @inactive "█"
 
-  @spec deactivate(Square.t) :: Square.t
+  @spec deactivate(t) :: t
   def deactivate(square) do
     %{square | revealed?: true, tile: @inactive}
   end
 
-  @spec active?(Square.t) :: boolean
+  @spec active?(t) :: boolean
   def active?(square) do
     square.tile !== @inactive
   end
 
-  @spec inc_adjacent_bombs(Square.t) :: Square.t
+  @spec inc_adjacent_bombs(t) :: t
   def inc_adjacent_bombs(square) do
     %{square | adjacent_bombs: square.adjacent_bombs + 1}
   end
 
-  @spec reveal(Square.t) :: Square.t
+  @spec reveal(t) :: t
   def reveal(square) do
     %{square | revealed?: true}
   end
 
-  @spec place_bomb(Square.t) :: Square.t
+  @spec place_bomb(t) :: t
   def place_bomb(square) do
     %{square | bomb?: true}
   end
 
   @doc false
-  @spec __render_state__(Square.t) :: String.t
+  @spec __render_state__(t) :: String.t
   def __render_state__(square) do
     if square.revealed? do
       adjacent_bomb_count = elem(@adjacent_bomb_symbols, square.adjacent_bombs)
