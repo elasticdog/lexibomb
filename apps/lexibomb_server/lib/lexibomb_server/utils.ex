@@ -77,6 +77,21 @@ defmodule LexibombServer.Utils do
     indentation <> String.replace(string, "\n", "\n" <> indentation)
   end
 
+  @spec seed_the_prng({integer, integer, integer}) :: :rand.state()
+  def seed_the_prng(seed) do
+    _ = :rand.seed(:exsplus, seed)
+  end
+
+  # http://erlang.org/doc/man/random.html#seed-3
+  @spec unique_seed :: {non_neg_integer, integer, integer}
+  def unique_seed do
+    a1 = :erlang.phash2([node])
+    a2 = System.monotonic_time
+    a3 = System.unique_integer
+
+    {a1, a2, a3}
+  end
+
   @spec zero_pad(non_neg_integer, non_neg_integer) :: String.t
   def zero_pad(n, len) when is_integer(n) do
     n |> to_string |> String.rjust(len, ?0)

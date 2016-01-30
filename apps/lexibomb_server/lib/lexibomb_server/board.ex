@@ -2,10 +2,11 @@ defmodule LexibombServer.Board do
   @moduledoc """
   """
 
-  defstruct [:grid]
+  defstruct [:grid, :seed]
 
   alias LexibombServer.Board
   alias LexibombServer.Board.Grid
+  alias LexibombServer.Utils
 
   @type t :: %{grid: Grid.t}
 
@@ -14,7 +15,17 @@ defmodule LexibombServer.Board do
 
   @spec start_link(pos_integer) :: Agent.on_start
   def start_link(size \\ @default_size) do
-    board = %Board{grid: Grid.initialize(size)}
+    seed = Utils.unique_seed
+    start_link(size, seed)
+  end
+
+  @spec start_link(pos_integer, {integer, integer, integer}) :: Agent.on_start
+  def start_link(size, seed) do
+    board = %Board{
+      grid: Grid.initialize(size),
+      seed: seed,
+    }
+
     Agent.start_link(fn -> board end)
   end
 
@@ -47,6 +58,7 @@ defmodule LexibombServer.Board do
   @spec place_random_bombs(pid, pos_integer) :: Board.t
   def place_random_bombs(pid, count \\ @bomb_count) do
     board = get(pid)
+    _ = Utils.seed_the_prng(board.seed)
     coords =
       board.grid
       |> Grid.active_squares
