@@ -7,6 +7,7 @@ defmodule LexibombServer.Board do
   alias LexibombServer.Board.Grid
   alias LexibombServer.Utils
 
+  @type coord :: Grid.coord | {non_neg_integer, String.t} | String.t
   @type seed :: {integer, integer, integer}
   @type t :: %{grid: Grid.t, seed: seed}
 
@@ -44,6 +45,44 @@ defmodule LexibombServer.Board do
   @spec set(t, pid) :: :ok
   def set(board, pid) do
     Agent.update(pid, fn _ -> board end)
+  end
+
+  @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, String.t}
+  def parse_coord(pid, coord) when is_binary(coord) do
+    {row_string, letter} = coord |> String.split_at(-1)
+
+    try do
+      row_string
+      |> String.rstrip
+      |> String.to_integer
+    catch
+      :error, :badarg -> {:error, "row '#{row_string}' is not an integer"}
+    else
+      row -> parse_coord(pid, {row, letter})
+    end
+  end
+
+  def parse_coord(pid, {row, letter}) when is_binary(letter) do
+    col = letter_to_col(letter)
+    parse_coord(pid, {row, col})
+  end
+
+  def parse_coord(pid, {row, col}) do
+    grid = get(pid).grid
+
+    if Grid.valid_coord?(grid, {row, col}) do
+      {:ok, {row, col}}
+    else
+      {:error, "coord #{inspect {row, col}} is not on the board"}
+    end
+  end
+
+  @spec letter_to_col(String.t) :: pos_integer
+  def letter_to_col(string) when byte_size(string) === 1 do
+    normalized = String.downcase(string)
+    [char] = normalized |> to_char_list
+
+    char - ?a + 1
   end
 
   @spec place_bomb(pid, Grid.coord) :: t

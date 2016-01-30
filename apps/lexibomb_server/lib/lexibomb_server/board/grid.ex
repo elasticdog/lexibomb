@@ -69,6 +69,13 @@ defmodule LexibombServer.Board.Grid do
     |> Map.new
   end
 
+  @spec valid_coord?(t, coord) :: boolean
+  def valid_coord?(grid, coord) do
+    grid
+    |> active_squares
+    |> Map.has_key?(coord)
+  end
+
   @spec place_bomb(t, coord) :: t
   def place_bomb(grid, coord) do
     square = Map.get(grid, coord)
