@@ -14,7 +14,7 @@ defmodule LexibombServer.Board do
 
   @spec start_link :: Agent.on_start
   def start_link do
-    Agent.start_link(fn -> new end)
+    start_link(new)
   end
 
   @spec start_link(t) :: Agent.on_start
