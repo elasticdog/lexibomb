@@ -28,7 +28,7 @@ defmodule LexibombServer.Board do
     new(size, Utils.unique_seed)
   end
 
-  @spec new(pos_integer, {integer, integer, integer}) :: t
+  @spec new(pos_integer, seed) :: t
   def new(size, seed) do
     %LexibombServer.Board{
       grid: Grid.initialize(size),
