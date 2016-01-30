@@ -12,8 +12,8 @@ defmodule LexibombServer.Board.Grid do
 
   @border 2
 
-  @spec initialize(pos_integer) :: t
-  def initialize(size) do
+  @spec init(pos_integer) :: t
+  def init(size) do
     empty_grid(size + @border) |> deactivate_border
   end
 
