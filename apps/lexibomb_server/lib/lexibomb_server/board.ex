@@ -7,7 +7,8 @@ defmodule LexibombServer.Board do
   alias LexibombServer.Board.Grid
   alias LexibombServer.Utils
 
-  @type t :: %{grid: Grid.t}
+  @type seed :: {integer, integer, integer}
+  @type t :: %{grid: Grid.t, seed: seed}
 
   @default_size 15
   @bomb_count 22
