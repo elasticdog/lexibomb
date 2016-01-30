@@ -92,14 +92,10 @@ defmodule LexibombServer.Board.Grid do
 
   @spec adjacent_coords(coord) :: [coord]
   def adjacent_coords({row, col}) do
-    [{row-1, col-1},
-     {row-1, col  },
-     {row-1, col+1},
-     {row,   col-1},
-     {row,   col+1},
-     {row+1, col-1},
-     {row+1, col  },
-     {row+1, col+1}]
+    for x <- (col - 1)..(col + 1),
+        y <- (row - 1)..(row + 1),
+        {x, y} != {row, col},
+        do: {x, y}
   end
 
   @spec place_bombs(t, [coord]) :: t
