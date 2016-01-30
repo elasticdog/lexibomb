@@ -85,8 +85,19 @@ defmodule LexibombServer.Board do
     char - ?a + 1
   end
 
-  @spec place_bomb(pid, Grid.coord) :: t
+  @spec place_bomb(pid, coord) :: t
   def place_bomb(pid, coord) do
+    case parse_coord(pid, coord) do
+      {:ok, coord} ->
+        do_place_bomb(pid, coord)
+      {:error, reason} ->
+        IO.puts "Error: #{reason}"
+        get(pid)
+    end
+  end
+
+  @spec do_place_bomb(pid, Grid.coord) :: t
+  defp do_place_bomb(pid, coord) do
     Agent.get_and_update(pid, fn board ->
       new_board = %{board | grid: Grid.place_bomb(board.grid, coord)}
       {new_board, new_board}
