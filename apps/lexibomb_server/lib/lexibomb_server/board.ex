@@ -11,8 +11,6 @@ defmodule LexibombServer.Board do
   @type seed :: {integer, integer, integer}
   @type t :: %{grid: Grid.t, seed: seed}
 
-  @typep reason :: :badarg | :coord_off_board
-
   @default_size 15
   @bomb_count 22
 
@@ -59,26 +57,14 @@ defmodule LexibombServer.Board do
   @doc """
   Places a bomb on the board square at the given coordinate.
 
-  Returns `:ok` on success, or `{:error, reason}` on failure.
+  Returns `:ok` on success, or `{:error, :invalid_coord}` on failure.
   """
-  @spec place_bomb(pid, coord) :: :ok | {:error, reason}
+  @spec place_bomb(pid, coord) :: :ok | {:error, :invalid_coord}
   def place_bomb(pid, coord) do
-    case parse_coord(pid, coord) do
-      {:ok, coord} ->
-        do_place_bomb(pid, coord)
-      {:error, reason} ->
-        {:error, reason}
-    end
+    place_bombs(pid, [coord])
   end
 
-  @spec do_place_bomb(pid, Grid.coord) :: :ok
-  defp do_place_bomb(pid, coord) do
-    Agent.update(pid, fn board ->
-      %{board | grid: Grid.place_bomb(board.grid, coord)}
-    end)
-  end
-
-  @spec place_bombs(pid, [coord]) :: :ok | {:error, reason}
+  @spec place_bombs(pid, [coord]) :: :ok | {:error, :invalid_coord}
   def place_bombs(pid, coords) do
     parsed_coords = coords |> Enum.map(&parse_coord(pid, &1))
 
@@ -88,7 +74,7 @@ defmodule LexibombServer.Board do
       end)
 
     if any_errors? do
-      {:error, :badarg}
+      {:error, :invalid_coord}
     else
       parsed_coords
       |> Keyword.values
@@ -115,7 +101,7 @@ defmodule LexibombServer.Board do
     |> do_place_bombs(pid)
   end
 
-  @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, reason}
+  @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, :invalid_coord}
   defp parse_coord(pid, coord) when is_binary(coord) do
     {row_string, letter} = coord |> String.split_at(-1)
 
@@ -124,7 +110,7 @@ defmodule LexibombServer.Board do
       |> String.rstrip
       |> String.to_integer
     catch
-      :error, :badarg -> {:error, :badarg}
+      :error, :badarg -> {:error, :invalid_coord}
     else
       row -> parse_coord(pid, {row, letter})
     end
@@ -141,7 +127,7 @@ defmodule LexibombServer.Board do
     if Grid.valid_coord?(grid, {row, col}) do
       {:ok, {row, col}}
     else
-      {:error, :coord_off_board}
+      {:error, :invalid_coord}
     end
   end
 
