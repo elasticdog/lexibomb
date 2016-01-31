@@ -122,20 +122,20 @@ defmodule LexibombServer.Board do
 
   ## Examples
 
-    iex> LexibombServer.Board.parse_coord "10B"
-    {:ok, {10, 2}}
-    iex> LexibombServer.Board.parse_coord "10 b"
-    {:ok, {10, 2}}
-    iex> LexibombServer.Board.parse_coord {10, "B"}
-    {:ok, {10, 2}}
-    iex> LexibombServer.Board.parse_coord {10, 2}
-    {:ok, {10, 2}}
-    iex> LexibombServer.Board.parse_coord {-10, 2}
-    {:error, :badarg}
-    iex> LexibombServer.Board.parse_coord {"B", 10}
-    {:error, :badarg}
+      iex> LexibombServer.Board.parse_coord "10B"
+      {:ok, {10, 2}}
+      iex> LexibombServer.Board.parse_coord "10 b"
+      {:ok, {10, 2}}
+      iex> LexibombServer.Board.parse_coord {10, "B"}
+      {:ok, {10, 2}}
+      iex> LexibombServer.Board.parse_coord {10, 2}
+      {:ok, {10, 2}}
+      iex> LexibombServer.Board.parse_coord {-10, 2}
+      {:error, :badarg}
+      iex> LexibombServer.Board.parse_coord {"B", 10}
+      {:error, :badarg}
 
-  Returns  `{:ok, {row, col}} on success, or {:error, :badarg} on failure.
+  Returns `{:ok, {row, col}}` on success, or `{:error, :badarg}` on failure.
   """
   @spec parse_coord(coord) :: {:ok, Grid.coord} | {:error, :badarg}
   def parse_coord(coord) when is_binary(coord) do
