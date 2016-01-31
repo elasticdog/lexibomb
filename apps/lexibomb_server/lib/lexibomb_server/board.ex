@@ -8,9 +8,10 @@ defmodule LexibombServer.Board do
   alias LexibombServer.Utils
 
   @type coord :: Grid.coord | {non_neg_integer, String.t} | String.t
-  @type coord_error :: :badarg | :coord_off_board
   @type seed :: {integer, integer, integer}
   @type t :: %{grid: Grid.t, seed: seed}
+
+  @typep reason :: :badarg | :coord_off_board
 
   @default_size 15
   @bomb_count 22
@@ -48,42 +49,11 @@ defmodule LexibombServer.Board do
     Agent.update(pid, fn _ -> board end)
   end
 
-  @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, coord_error}
-  def parse_coord(pid, coord) when is_binary(coord) do
-    {row_string, letter} = coord |> String.split_at(-1)
-
-    try do
-      row_string
-      |> String.rstrip
-      |> String.to_integer
-    catch
-      :error, :badarg -> {:error, :badarg}
-    else
-      row -> parse_coord(pid, {row, letter})
-    end
-  end
-
-  def parse_coord(pid, {row, letter}) when is_binary(letter) do
-    col = letter_to_col(letter)
-    parse_coord(pid, {row, col})
-  end
-
-  def parse_coord(pid, {row, col}) do
-    grid = get(pid).grid
-
-    if Grid.valid_coord?(grid, {row, col}) do
-      {:ok, {row, col}}
-    else
-      {:error, :coord_off_board}
-    end
-  end
-
-  @spec letter_to_col(String.t) :: pos_integer
-  def letter_to_col(string) when byte_size(string) === 1 do
-    normalized = String.downcase(string)
-    [char] = normalized |> to_char_list
-
-    char - ?a + 1
+  @spec size(pid) :: pos_integer
+  def size(pid) do
+    Agent.get(pid, fn board ->
+      Grid.board_size(board.grid)
+    end)
   end
 
   @doc """
@@ -91,7 +61,7 @@ defmodule LexibombServer.Board do
 
   Returns `:ok` on success, or `{:error, reason}` on failure.
   """
-  @spec place_bomb(pid, coord) :: :ok | {:error, coord_error}
+  @spec place_bomb(pid, coord) :: :ok | {:error, reason}
   def place_bomb(pid, coord) do
     case parse_coord(pid, coord) do
       {:ok, coord} ->
@@ -108,7 +78,7 @@ defmodule LexibombServer.Board do
     end)
   end
 
-  @spec place_bombs(pid, [coord]) :: :ok | {:error, coord_error}
+  @spec place_bombs(pid, [coord]) :: :ok | {:error, reason}
   def place_bombs(pid, coords) do
     parsed_coords = coords |> Enum.map(&parse_coord(pid, &1))
 
@@ -127,7 +97,7 @@ defmodule LexibombServer.Board do
   end
 
   @spec do_place_bombs([Grid.coord], pid) :: :ok
-  def do_place_bombs(coords, pid) do
+  defp do_place_bombs(coords, pid) do
     Agent.update(pid, fn board ->
       %{board | grid: Grid.place_bombs(board.grid, coords)}
     end)
@@ -145,11 +115,42 @@ defmodule LexibombServer.Board do
     |> do_place_bombs(pid)
   end
 
-  @spec size(pid) :: pos_integer
-  def size(pid) do
-    Agent.get(pid, fn board ->
-      Grid.board_size(board.grid)
-    end)
+  @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, reason}
+  defp parse_coord(pid, coord) when is_binary(coord) do
+    {row_string, letter} = coord |> String.split_at(-1)
+
+    try do
+      row_string
+      |> String.rstrip
+      |> String.to_integer
+    catch
+      :error, :badarg -> {:error, :badarg}
+    else
+      row -> parse_coord(pid, {row, letter})
+    end
+  end
+
+  defp parse_coord(pid, {row, letter}) when is_binary(letter) do
+    col = letter_to_col(letter)
+    parse_coord(pid, {row, col})
+  end
+
+  defp parse_coord(pid, {row, col}) do
+    grid = get(pid).grid
+
+    if Grid.valid_coord?(grid, {row, col}) do
+      {:ok, {row, col}}
+    else
+      {:error, :coord_off_board}
+    end
+  end
+
+  @spec letter_to_col(String.t) :: pos_integer
+  defp letter_to_col(string) when byte_size(string) === 1 do
+    normalized = String.downcase(string)
+    [char] = normalized |> to_char_list
+
+    char - ?a + 1
   end
 
   # Reveal all the squares on a `board` for debugging.
