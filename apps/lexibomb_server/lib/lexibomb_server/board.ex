@@ -8,6 +8,7 @@ defmodule LexibombServer.Board do
   alias LexibombServer.Utils
 
   @type coord :: Grid.coord | {non_neg_integer, String.t} | String.t
+  @type coord_error :: :badarg | :coord_off_board
   @type seed :: {integer, integer, integer}
   @type t :: %{grid: Grid.t, seed: seed}
 
@@ -47,7 +48,7 @@ defmodule LexibombServer.Board do
     Agent.update(pid, fn _ -> board end)
   end
 
-  @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, String.t}
+  @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, coord_error}
   def parse_coord(pid, coord) when is_binary(coord) do
     {row_string, letter} = coord |> String.split_at(-1)
 
@@ -56,7 +57,7 @@ defmodule LexibombServer.Board do
       |> String.rstrip
       |> String.to_integer
     catch
-      :error, :badarg -> {:error, "row '#{row_string}' is not an integer"}
+      :error, :badarg -> {:error, :badarg}
     else
       row -> parse_coord(pid, {row, letter})
     end
@@ -73,7 +74,7 @@ defmodule LexibombServer.Board do
     if Grid.valid_coord?(grid, {row, col}) do
       {:ok, {row, col}}
     else
-      {:error, "coord #{inspect {row, col}} is not on the board"}
+      {:error, :coord_off_board}
     end
   end
 
@@ -85,44 +86,63 @@ defmodule LexibombServer.Board do
     char - ?a + 1
   end
 
-  @spec place_bomb(pid, coord) :: t
+  @doc """
+  Places a bomb on the board square at the given coordinate.
+
+  Returns `:ok` on success, or `{:error, reason}` on failure.
+  """
+  @spec place_bomb(pid, coord) :: :ok | {:error, coord_error}
   def place_bomb(pid, coord) do
     case parse_coord(pid, coord) do
       {:ok, coord} ->
         do_place_bomb(pid, coord)
       {:error, reason} ->
-        IO.puts "Error: #{reason}"
-        get(pid)
+        {:error, reason}
     end
   end
 
-  @spec do_place_bomb(pid, Grid.coord) :: t
+  @spec do_place_bomb(pid, Grid.coord) :: :ok
   defp do_place_bomb(pid, coord) do
-    Agent.get_and_update(pid, fn board ->
-      new_board = %{board | grid: Grid.place_bomb(board.grid, coord)}
-      {new_board, new_board}
+    Agent.update(pid, fn board ->
+      %{board | grid: Grid.place_bomb(board.grid, coord)}
     end)
   end
 
-  @spec place_bombs(pid, [Grid.coord]) :: t
+  @spec place_bombs(pid, [coord]) :: :ok | {:error, coord_error}
   def place_bombs(pid, coords) do
-    Agent.get_and_update(pid, fn board ->
-      new_board = %{board | grid: Grid.place_bombs(board.grid, coords)}
-      {new_board, new_board}
+    parsed_coords = coords |> Enum.map(&parse_coord(pid, &1))
+
+    any_errors? =
+      Enum.any?(parsed_coords, fn coord ->
+        match?({:error, _}, coord)
+      end)
+
+    if any_errors? do
+      {:error, :badarg}
+    else
+      parsed_coords
+      |> Keyword.values
+      |> do_place_bombs(pid)
+    end
+  end
+
+  @spec do_place_bombs([Grid.coord], pid) :: :ok
+  def do_place_bombs(coords, pid) do
+    Agent.update(pid, fn board ->
+      %{board | grid: Grid.place_bombs(board.grid, coords)}
     end)
   end
 
-  @spec place_random_bombs(pid, pos_integer) :: t
+  @spec place_random_bombs(pid, pos_integer) :: :ok
   def place_random_bombs(pid, count \\ @bomb_count) do
     board = get(pid)
     _ = Utils.seed_the_prng(board.seed)
-    coords =
-      board.grid
-      |> Grid.active_squares
-      |> Map.keys
-      |> Enum.take_random(count)
 
-    place_bombs(pid, coords)
+    board.grid
+    |> Grid.active_squares
+    |> Map.keys
+    |> Enum.take_random(count)
+    |> do_place_bombs(pid)
   end
 
   @spec size(pid) :: pos_integer
@@ -134,11 +154,10 @@ defmodule LexibombServer.Board do
 
   # Reveal all the squares on a `board` for debugging.
   @doc false
-  @spec __reveal__(t | pid) :: t
+  @spec __reveal__(t | pid) :: :ok | t
   def __reveal__(pid) when is_pid(pid) do
-    Agent.get_and_update(pid, fn board ->
-      new_board = __reveal__(board)
-      {new_board, new_board}
+    Agent.update(pid, fn board ->
+      __reveal__(board)
     end)
   end
   def __reveal__(board) do
