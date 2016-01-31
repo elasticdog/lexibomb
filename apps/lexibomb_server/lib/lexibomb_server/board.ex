@@ -64,6 +64,11 @@ defmodule LexibombServer.Board do
     place_bombs(pid, [coord])
   end
 
+  @doc """
+  Places a bomb on each of the board squares at the given coordinates.
+
+  Returns `:ok` on success, or `{:error, :invalid_coord}` on failure.
+  """
   @spec place_bombs(pid, [coord]) :: :ok | {:error, :invalid_coord}
   def place_bombs(pid, coords) do
     parsed_coords = coords |> Enum.map(&parse_coord(pid, &1))
@@ -89,6 +94,9 @@ defmodule LexibombServer.Board do
     end)
   end
 
+  @doc """
+  Places a bomb on `count` number of randomly selected board squares.
+  """
   @spec place_random_bombs(pid, pos_integer) :: :ok
   def place_random_bombs(pid, count \\ @bomb_count) do
     board = get(pid)
@@ -101,8 +109,35 @@ defmodule LexibombServer.Board do
     |> do_place_bombs(pid)
   end
 
+  @doc """
+  Parses, normalizes, and validates a given coordinate.
+
+  It will parse any of the valid `LexibombServer.Board.coord` forms and will
+  normalize them to the underlying `LexibombServer.Board.Grid.coord` type. If
+  indicating the column with a string, you can use either uppercase or
+  lowercase letters, and you may also optionally separate the row and column
+  with whitespace.
+
+  Validation also occurs to ensure that the coordinate given is actually
+  a square on the board.
+
+  ## Examples
+
+    > LexibombServer.Board.parse_coord "10B"
+    {:ok, {10, 2}}
+    > LexibombServer.Board.parse_coord "10 b"
+    {:ok, {10, 2}}
+    > LexibombServer.Board.parse_coord {10, "B"}
+    {:ok, {10, 2}}
+    > LexibombServer.Board.parse_coord {10, 2}
+    {:ok, {10, 2}}
+    > LexibombServer.Board.parse_coord {10, ""}
+    {:error, :invalid_coord}
+
+  Returns  `{:ok, {row, col}} on success, or {:error, :invalid_coord} on failure.
+  """
   @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, :invalid_coord}
-  defp parse_coord(pid, coord) when is_binary(coord) do
+  def parse_coord(pid, coord) when is_binary(coord) do
     {row_string, letter} = coord |> String.split_at(-1)
 
     try do
@@ -116,12 +151,12 @@ defmodule LexibombServer.Board do
     end
   end
 
-  defp parse_coord(pid, {row, letter}) when is_binary(letter) do
+  def parse_coord(pid, {row, letter}) when is_binary(letter) do
     col = letter_to_col(letter)
     parse_coord(pid, {row, col})
   end
 
-  defp parse_coord(pid, {row, col}) do
+  def parse_coord(pid, {row, col}) do
     grid = get(pid).grid
 
     if Grid.valid_coord?(grid, {row, col}) do
@@ -138,6 +173,7 @@ defmodule LexibombServer.Board do
 
     char - ?a + 1
   end
+  defp letter_to_col(_), do: {:error, :invalid_coord}
 
   # Reveal all the squares on a `board` for debugging.
   @doc false
