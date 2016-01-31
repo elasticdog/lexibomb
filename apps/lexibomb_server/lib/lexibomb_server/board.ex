@@ -57,9 +57,9 @@ defmodule LexibombServer.Board do
   @doc """
   Places a bomb on the board square at the given coordinate.
 
-  Returns `:ok` on success, or `{:error, :invalid_coord}` on failure.
+  Returns `:ok` on success, or `{:error, :badarg}` on failure.
   """
-  @spec place_bomb(pid, coord) :: :ok | {:error, :invalid_coord}
+  @spec place_bomb(pid, coord) :: :ok | {:error, :badarg}
   def place_bomb(pid, coord) do
     place_bombs(pid, [coord])
   end
@@ -67,11 +67,11 @@ defmodule LexibombServer.Board do
   @doc """
   Places a bomb on each of the board squares at the given coordinates.
 
-  Returns `:ok` on success, or `{:error, :invalid_coord}` on failure.
+  Returns `:ok` on success, or `{:error, :badarg}` on failure.
   """
-  @spec place_bombs(pid, [coord]) :: :ok | {:error, :invalid_coord}
+  @spec place_bombs(pid, [coord]) :: :ok | {:error, :badarg}
   def place_bombs(pid, coords) do
-    parsed_coords = coords |> Enum.map(&parse_coord(pid, &1))
+    parsed_coords = coords |> Enum.map(&parse_coord/1)
 
     any_errors? =
       Enum.any?(parsed_coords, fn coord ->
@@ -79,7 +79,7 @@ defmodule LexibombServer.Board do
       end)
 
     if any_errors? do
-      {:error, :invalid_coord}
+      {:error, :badarg}
     else
       parsed_coords
       |> Keyword.values
@@ -110,7 +110,7 @@ defmodule LexibombServer.Board do
   end
 
   @doc """
-  Parses, normalizes, and validates a given coordinate.
+  Parses and normalizes a given coordinate.
 
   It will parse any of the valid `LexibombServer.Board.coord` forms and will
   normalize them to the underlying `LexibombServer.Board.Grid.coord` type. If
@@ -118,26 +118,27 @@ defmodule LexibombServer.Board do
   lowercase letters, and you may also optionally separate the row and column
   with whitespace.
 
-  Validation also occurs to ensure that the coordinate given is actually
-  a square on the board.
+  Both `row` and `col` must parse into non-negative integers for success.
 
   ## Examples
 
-    > LexibombServer.Board.parse_coord "10B"
+    iex> LexibombServer.Board.parse_coord "10B"
     {:ok, {10, 2}}
-    > LexibombServer.Board.parse_coord "10 b"
+    iex> LexibombServer.Board.parse_coord "10 b"
     {:ok, {10, 2}}
-    > LexibombServer.Board.parse_coord {10, "B"}
+    iex> LexibombServer.Board.parse_coord {10, "B"}
     {:ok, {10, 2}}
-    > LexibombServer.Board.parse_coord {10, 2}
+    iex> LexibombServer.Board.parse_coord {10, 2}
     {:ok, {10, 2}}
-    > LexibombServer.Board.parse_coord {10, ""}
-    {:error, :invalid_coord}
+    iex> LexibombServer.Board.parse_coord {-10, 2}
+    {:error, :badarg}
+    iex> LexibombServer.Board.parse_coord {"B", 10}
+    {:error, :badarg}
 
-  Returns  `{:ok, {row, col}} on success, or {:error, :invalid_coord} on failure.
+  Returns  `{:ok, {row, col}} on success, or {:error, :badarg} on failure.
   """
-  @spec parse_coord(pid, coord) :: {:ok, Grid.coord} | {:error, :invalid_coord}
-  def parse_coord(pid, coord) when is_binary(coord) do
+  @spec parse_coord(coord) :: {:ok, Grid.coord} | {:error, :badarg}
+  def parse_coord(coord) when is_binary(coord) do
     {row_string, letter} = coord |> String.split_at(-1)
 
     try do
@@ -145,35 +146,56 @@ defmodule LexibombServer.Board do
       |> String.rstrip
       |> String.to_integer
     catch
-      :error, :badarg -> {:error, :invalid_coord}
+      :error, :badarg -> {:error, :badarg}
     else
-      row -> parse_coord(pid, {row, letter})
+      row -> parse_coord({row, letter})
     end
   end
 
-  def parse_coord(pid, {row, letter}) when is_binary(letter) do
+  def parse_coord({row, letter}) when is_integer(row) and is_binary(letter) do
     col = letter_to_col(letter)
-    parse_coord(pid, {row, col})
+    case col do
+      :error ->
+        {:error, :badarg}
+      _ ->
+        parse_coord({row, col})
+    end
   end
 
-  def parse_coord(pid, {row, col}) do
-    grid = get(pid).grid
-
-    if Grid.valid_coord?(grid, {row, col}) do
+  def parse_coord({row, col}) when is_integer(row) and is_integer(col) do
+    if Enum.all?([row, col], &(&1 >= 0)) do
       {:ok, {row, col}}
     else
-      {:error, :invalid_coord}
+      {:error, :badarg}
     end
   end
 
-  @spec letter_to_col(String.t) :: pos_integer
+  def parse_coord(_coord), do: {:error, :badarg}
+
+  @spec letter_to_col(String.t) :: pos_integer | :error
   defp letter_to_col(string) when byte_size(string) === 1 do
     normalized = String.downcase(string)
     [char] = normalized |> to_char_list
 
     char - ?a + 1
   end
-  defp letter_to_col(_), do: {:error, :invalid_coord}
+  defp letter_to_col(_), do: :error
+
+  @doc """
+  Validates if the given coordinate points to a square on the board.
+  """
+  @spec valid_square?(pid, coord) :: boolean
+  def valid_square?(pid, coord) do
+    result =
+      with {:ok, coord} <- parse_coord(coord),
+           grid = get(pid).grid,
+        do: Grid.valid_coord?(grid, coord)
+
+    case result do
+      {:error, _} -> false
+      _ -> result
+    end
+  end
 
   # Reveal all the squares on a `board` for debugging.
   @doc false
