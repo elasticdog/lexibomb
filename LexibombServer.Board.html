@@ -63,7 +63,7 @@
         LexibombServer.Board
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -96,6 +96,12 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#t:coord_error/0">coord_error()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#t:seed/0">seed()</a>
   </div>
   
@@ -116,6 +122,12 @@
       <a href="#functions">Functions</a>
     </h2>
     <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#do_place_bombs/2">do_place_bombs(coords, pid)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
   <div class="summary-signature">
     <a href="#get/1">get(pid)</a>
   </div>
@@ -149,6 +161,9 @@
   <div class="summary-signature">
     <a href="#place_bomb/2">place_bomb(pid, coord)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Places a bomb on the board square at the given coordinate</p>
+</div>
   
 </div>
 <div class="summary-row">
@@ -214,6 +229,10 @@
   <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
   
 </div>
+<div id="t:coord_error/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:coord_error/0">coord_error</a> :: :badarg | :coord_off_board</code></pre>
+  
+</div>
 <div id="t:seed/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:seed/0">seed</a> :: {integer, integer, integer}</code></pre>
   
@@ -235,14 +254,40 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="get/1">
+          <div class="detail" id="do_place_bombs/2">
+  <div class="detail-header">
+    <a href="#do_place_bombs/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">do_place_bombs(coords, pid)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L130" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">do_place_bombs([<a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a>], pid) :: :ok</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="get/1">
   <div class="detail-header">
     <a href="#get/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
     <span class="signature">get(pid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L41" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L42" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -268,7 +313,7 @@
     </a>
     <span class="signature">letter_to_col(string)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L81" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L82" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -294,7 +339,7 @@
     </a>
     <span class="signature">new(size \\ 15)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L28" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L29" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -320,7 +365,7 @@
     </a>
     <span class="signature">new(size, seed)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L33" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L34" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -346,7 +391,7 @@
     </a>
     <span class="signature">parse_coord(pid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L51" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L52" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -358,7 +403,7 @@
         
           <pre><code class="elixir">parse_coord(pid, <a href="#t:coord/0">coord</a>) ::
   {:ok, <a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a>} |
-  {:error, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+  {:error, <a href="#t:coord_error/0">coord_error</a>}</code></pre>
         
       </div>
     </div>
@@ -374,7 +419,7 @@
     </a>
     <span class="signature">place_bomb(pid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L89" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L95" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -384,13 +429,15 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">place_bomb(pid, <a href="#t:coord/0">coord</a>) :: <a href="#t:t/0">t</a></code></pre>
+          <pre><code class="elixir">place_bomb(pid, <a href="#t:coord/0">coord</a>) :: :ok | {:error, <a href="#t:coord_error/0">coord_error</a>}</code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    
+    <p>Places a bomb on the board square at the given coordinate.</p>
+<p>Returns <code class="inline">:ok</code> on success, or <code class="inline">{:error, reason}</code> on failure.</p>
+
   </section>
 </div>
 <div class="detail" id="place_bombs/2">
@@ -400,7 +447,7 @@
     </a>
     <span class="signature">place_bombs(pid, coords)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L108" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L112" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -410,7 +457,9 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">place_bombs(pid, [<a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a>]) :: <a href="#t:t/0">t</a></code></pre>
+          <pre><code class="elixir">place_bombs(pid, [<a href="#t:coord/0">coord</a>]) ::
+  :ok |
+  {:error, <a href="#t:coord_error/0">coord_error</a>}</code></pre>
         
       </div>
     </div>
@@ -426,7 +475,7 @@
     </a>
     <span class="signature">place_random_bombs(pid, count \\ 22)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L116" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L137" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -436,7 +485,7 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">place_random_bombs(pid, pos_integer) :: <a href="#t:t/0">t</a></code></pre>
+          <pre><code class="elixir">place_random_bombs(pid, pos_integer) :: :ok</code></pre>
         
       </div>
     </div>
@@ -452,7 +501,7 @@
     </a>
     <span class="signature">set(board, pid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L46" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L47" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -478,7 +527,7 @@
     </a>
     <span class="signature">size(pid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L129" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L149" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -504,7 +553,7 @@
     </a>
     <span class="signature">start_link()</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L18" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L19" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -530,7 +579,7 @@
     </a>
     <span class="signature">start_link(board)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/aa5167f0d06ffb7b51147261c53cac2fc32f4316/apps/lexibomb_server/lib/lexibomb_server/board.ex#L23" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a3db208b6cb9183a91fc26878da50edbac77c0f9/apps/lexibomb_server/lib/lexibomb_server/board.ex#L24" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
