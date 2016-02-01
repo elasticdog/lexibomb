@@ -1,5 +1,12 @@
 defmodule LexibombServer.Board do
   @moduledoc """
+  Maintains the state of game boards and provides the high-level public API for
+  interacting with them througout gameplay.
+
+  A default Lexibomb board consists of a 15 x 15 grid of squares. The squares
+  are referred to using a coordinate system where the rows are numbered
+  1 through 15, and the columns are numbered "a" through "o". A number combined
+  with a letter specify a square on the board.
   """
 
   defstruct [:grid, :seed]
@@ -14,21 +21,43 @@ defmodule LexibombServer.Board do
   @default_size 15
   @bomb_count 22
 
+  @doc """
+  Starts an agent linked to the current process, storing the state of a new
+  board.
+
+  ## Examples
+
+      iex> {:ok, pid} = LexibombServer.Board.start_link
+      iex> is_pid(pid)
+      true
+  """
   @spec start_link :: Agent.on_start
   def start_link do
     start_link(new)
   end
 
+  @doc """
+  Starts an agent linked to the current process, storing the state of the given
+  `board`.
+  """
   @spec start_link(t) :: Agent.on_start
   def start_link(board) do
     Agent.start_link(fn -> board end)
   end
 
+  @doc """
+  Creates a board of the given `size`.
+
+  A unique seed for the PRNG is generated and stored with the board.
+  """
   @spec new(pos_integer) :: t
   def new(size \\ @default_size) do
     new(size, Utils.unique_seed)
   end
 
+  @doc """
+  Creates a board of the given `size` with a specific PRNG `seed`.
+  """
   @spec new(pos_integer, seed) :: t
   def new(size, seed) do
     %LexibombServer.Board{
@@ -37,16 +66,27 @@ defmodule LexibombServer.Board do
     }
   end
 
+  @doc """
+  Retrieves the board's state from the given process.
+  """
   @spec get(pid) :: t
   def get(pid) do
     Agent.get(pid, &(&1))
   end
 
+  @doc """
+  Stores the state of `board` in the given process.
+  """
   @spec set(t, pid) :: :ok
   def set(board, pid) do
     Agent.update(pid, fn _ -> board end)
   end
 
+  @doc """
+  Returns the size of the game board.
+
+  The "size", is the number of squares along a single dimension of the board.
+  """
   @spec size(pid) :: pos_integer
   def size(pid) do
     Agent.get(pid, fn board ->
@@ -96,6 +136,8 @@ defmodule LexibombServer.Board do
 
   @doc """
   Places a bomb on `count` number of randomly selected board squares.
+
+  The board's PRNG seed is used to make this operation idempotent.
   """
   @spec place_random_bombs(pid, pos_integer) :: :ok
   def place_random_bombs(pid, count \\ @bomb_count) do
@@ -172,15 +214,6 @@ defmodule LexibombServer.Board do
 
   def parse_coord(_coord), do: {:error, :badarg}
 
-  @spec letter_to_col(String.t) :: pos_integer | :error
-  defp letter_to_col(string) when byte_size(string) === 1 do
-    normalized = String.downcase(string)
-    [char] = normalized |> to_char_list
-
-    char - ?a + 1
-  end
-  defp letter_to_col(_), do: :error
-
   @doc """
   Validates if the given coordinate points to a square on the board.
   """
@@ -197,7 +230,24 @@ defmodule LexibombServer.Board do
     end
   end
 
+  # Converts a single letter representing a column into an integer that matches
+  # the board's coordinate system. Returns `:error` on failure.
+  @spec letter_to_col(String.t) :: pos_integer | :error
+  defp letter_to_col(string) when byte_size(string) === 1 do
+    normalized = String.downcase(string)
+    [char] = normalized |> to_char_list
+
+    char - ?a + 1
+  end
+
+  defp letter_to_col(_), do: :error
+
   # Reveal all the squares on a `board` for debugging.
+  #
+  # If passed a `pid`, it will store the revealed state of the board in the
+  # given process and return `{:ok, revealed_board}`.
+  #
+  # If passed a `board`, it will return a new board with the revealed state.
   @doc false
   @spec __reveal__(pid | t) :: {:ok, t} | t
   def __reveal__(pid) when is_pid(pid) do
@@ -206,6 +256,7 @@ defmodule LexibombServer.Board do
       {{:ok, new_board}, new_board}
     end)
   end
+
   def __reveal__(board) do
     %{board | grid: Grid.__reveal__(board.grid)}
   end
@@ -221,7 +272,7 @@ defimpl Inspect, for: LexibombServer.Board do
     render(board.grid)
   end
 
-  @spec render(Grid.t | nil) :: String.t
+  @spec render(nil | Grid.t) :: String.t
   defp render(nil), do: "#Board<[]>"
   defp render(grid) do
     indent = 2
