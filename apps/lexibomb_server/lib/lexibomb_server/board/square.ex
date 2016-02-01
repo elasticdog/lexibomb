@@ -1,5 +1,10 @@
 defmodule LexibombServer.Board.Square do
   @moduledoc """
+  Manages the low-level state data associated with an individual board square.
+
+  A square can either be hidden or revealed, which indicates whether its state
+  data should be available externally. Placing a tile on a square automatically
+  sets it to the revealed state.
   """
 
   defstruct [
@@ -20,26 +25,41 @@ defmodule LexibombServer.Board.Square do
   @bomb_symbol "●"
   @inactive "█"
 
+  @doc """
+  Returns a copy of `square` in the inactive state.
+  """
   @spec deactivate(t) :: t
   def deactivate(square) do
     %{square | revealed?: true, tile: @inactive}
   end
 
+  @doc """
+  Returns `true` if the square is active.
+  """
   @spec active?(t) :: boolean
   def active?(square) do
     square.tile !== @inactive
   end
 
+  @doc """
+  Returns a copy of `square` with an incremented adjacent bomb count.
+  """
   @spec inc_adjacent_bombs(t) :: t
   def inc_adjacent_bombs(square) do
     %{square | adjacent_bombs: square.adjacent_bombs + 1}
   end
 
+  @doc """
+  Returns a copy of `square` in the revealed state.
+  """
   @spec reveal(t) :: t
   def reveal(square) do
     %{square | revealed?: true}
   end
 
+  @doc """
+  Returns a copy of `square` with a bomb placed on it.
+  """
   @spec place_bomb(t) :: t
   def place_bomb(square) do
     %{square | bomb?: true}
