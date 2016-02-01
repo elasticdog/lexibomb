@@ -106,12 +106,11 @@ defmodule LexibombServer.Board.Grid do
   end
 
   @spec place_bombs(t, [coord]) :: t
-  def place_bombs(grid, [head|tail]) do
-    grid
-    |> place_bomb(head)
-    |> place_bombs(tail)
+  def place_bombs(grid, coords) do
+    Enum.reduce(coords, grid, fn(coord, grid) ->
+      place_bomb(grid, coord)
+    end)
   end
-  def place_bombs(grid, []), do: grid
 
   # Reveal all the squares on a `grid` for debugging.
   @doc false
