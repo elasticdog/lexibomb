@@ -63,7 +63,7 @@
         LexibombServer.Board
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -72,11 +72,14 @@
       
         <section id="moduledoc" class="docstring">
           <p>Maintains the state of game boards and provides the high-level public API for
-interacting with them througout gameplay.</p>
+interacting with them throughout gameplay.</p>
 <p>A default Lexibomb board consists of a 15 x 15 grid of squares. The squares
 are referred to using a coordinate system where the rows are numbered
 1 through 15, and the columns are numbered “a” through “o”. A number combined
 with a letter specify a square on the board.</p>
+<p>A “seed” value is stored with each board and used to seed the pseudorandom
+number generator (PRNG) whenever randomness is required. This adds the option
+for functional determinism when necessary.</p>
 
         </section>
       
@@ -286,7 +289,7 @@ board</p>
     </a>
     <span class="signature">get(pid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L73" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L77" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -313,7 +316,7 @@ board</p>
     </a>
     <span class="signature">new(size \\ 15)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L54" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L58" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -341,7 +344,7 @@ board</p>
     </a>
     <span class="signature">new(size, seed)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L62" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L66" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -368,7 +371,7 @@ board</p>
     </a>
     <span class="signature">parse_coord(coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L183" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L187" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -417,7 +420,7 @@ iex&gt; LexibombServer.Board.parse_coord {&quot;B&quot;, 10}
     </a>
     <span class="signature">place_bomb(pid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L103" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L107" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -445,7 +448,7 @@ iex&gt; LexibombServer.Board.parse_coord {&quot;B&quot;, 10}
     </a>
     <span class="signature">place_bombs(pid, coords)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L113" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L117" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -473,7 +476,7 @@ iex&gt; LexibombServer.Board.parse_coord {&quot;B&quot;, 10}
     </a>
     <span class="signature">place_random_bombs(pid, count \\ 22)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L143" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L147" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -501,7 +504,7 @@ iex&gt; LexibombServer.Board.parse_coord {&quot;B&quot;, 10}
     </a>
     <span class="signature">set(board, pid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L81" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L85" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -528,7 +531,7 @@ iex&gt; LexibombServer.Board.parse_coord {&quot;B&quot;, 10}
     </a>
     <span class="signature">size(pid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L91" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L95" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -556,7 +559,7 @@ iex&gt; LexibombServer.Board.parse_coord {&quot;B&quot;, 10}
     </a>
     <span class="signature">start_link()</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L35" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L39" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -588,7 +591,7 @@ true</code></pre>
     </a>
     <span class="signature">start_link(board)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L44" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L48" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -616,7 +619,7 @@ true</code></pre>
     </a>
     <span class="signature">valid_square?(pid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board.ex#L221" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board.ex#L225" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     

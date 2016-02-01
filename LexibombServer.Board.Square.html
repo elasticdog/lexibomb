@@ -63,7 +63,7 @@
         LexibombServer.Board.Square
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -71,7 +71,11 @@
 
       
         <section id="moduledoc" class="docstring">
-          
+          <p>Manages the low-level state data associated with an individual board square.</p>
+<p>A square can either be hidden or revealed, which indicates whether its state
+data should be available externally. Placing a tile on a square automatically
+sets it to the revealed state.</p>
+
         </section>
       
 
@@ -108,11 +112,17 @@
     <a href="#active?/1">active?(square)</a>
   </div>
   
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if the square is active</p>
+</div>
+  
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#deactivate/1">deactivate(square)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Returns a copy of <code class="inline">square</code> in the inactive state</p>
+</div>
   
 </div>
 <div class="summary-row">
@@ -120,17 +130,26 @@
     <a href="#inc_adjacent_bombs/1">inc_adjacent_bombs(square)</a>
   </div>
   
+    <div class="summary-synopsis"><p>Returns a copy of <code class="inline">square</code> with an incremented adjacent bomb count</p>
+</div>
+  
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#place_bomb/1">place_bomb(square)</a>
   </div>
   
+    <div class="summary-synopsis"><p>Returns a copy of <code class="inline">square</code> with a bomb placed on it</p>
+</div>
+  
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#reveal/1">reveal(square)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Returns a copy of <code class="inline">square</code> in the revealed state</p>
+</div>
   
 </div>
 
@@ -177,7 +196,7 @@
     </a>
     <span class="signature">active?(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L29" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L40" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -193,7 +212,8 @@
     </div>
   
   <section class="docstring">
-    
+    <p>Returns <code class="inline">true</code> if the square is active.</p>
+
   </section>
 </div>
 <div class="detail" id="deactivate/1">
@@ -203,7 +223,7 @@
     </a>
     <span class="signature">deactivate(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L24" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L32" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -219,7 +239,8 @@
     </div>
   
   <section class="docstring">
-    
+    <p>Returns a copy of <code class="inline">square</code> in the inactive state.</p>
+
   </section>
 </div>
 <div class="detail" id="inc_adjacent_bombs/1">
@@ -229,7 +250,7 @@
     </a>
     <span class="signature">inc_adjacent_bombs(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L34" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L48" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -245,7 +266,8 @@
     </div>
   
   <section class="docstring">
-    
+    <p>Returns a copy of <code class="inline">square</code> with an incremented adjacent bomb count.</p>
+
   </section>
 </div>
 <div class="detail" id="place_bomb/1">
@@ -255,7 +277,7 @@
     </a>
     <span class="signature">place_bomb(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L44" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L64" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -271,7 +293,8 @@
     </div>
   
   <section class="docstring">
-    
+    <p>Returns a copy of <code class="inline">square</code> with a bomb placed on it.</p>
+
   </section>
 </div>
 <div class="detail" id="reveal/1">
@@ -281,7 +304,7 @@
     </a>
     <span class="signature">reveal(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/f82452eb3f662ec2f59dbee00a25e7d7b9a09ecf/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L39" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L56" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -297,7 +320,8 @@
     </div>
   
   <section class="docstring">
-    
+    <p>Returns a copy of <code class="inline">square</code> in the revealed state.</p>
+
   </section>
 </div>
 
