@@ -219,7 +219,7 @@ defmodule LexibombServer.Board do
   def parse_coord(_coord), do: {:error, :badarg}
 
   @doc """
-  Validates if the given coordinate points to a square on the board.
+  Returns `true` if the given coordinate points to a square on the board.
   """
   @spec valid_square?(pid, coord) :: boolean
   def valid_square?(pid, coord) do

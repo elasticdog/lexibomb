@@ -34,7 +34,7 @@ defmodule LexibombServer.Board.Grid do
   end
 
   @doc """
-  Returns the size of the board.
+  Returns the size of the game board.
 
   This does *not* include the additional rows/cols of the deactivated border.
   """
@@ -54,15 +54,6 @@ defmodule LexibombServer.Board.Grid do
     |> map_size
     |> :math.sqrt
     |> round
-  end
-
-  # Creates an empty grid of squares in the dimension given by `size`.
-  @spec empty_grid(pos_integer) :: t
-  defp empty_grid(size) do
-    for row <- 0 .. (size - 1),
-        col <- 0 .. (size - 1),
-        into: %{},
-        do: {{row, col}, %Square{}}
   end
 
   @doc """
@@ -103,6 +94,15 @@ defmodule LexibombServer.Board.Grid do
     grid
     |> active_squares
     |> Map.has_key?(coord)
+  end
+
+  # Creates an empty grid of squares in the dimension given by `size`.
+  @spec empty_grid(pos_integer) :: t
+  defp empty_grid(size) do
+    for row <- 0 .. (size - 1),
+        col <- 0 .. (size - 1),
+        into: %{},
+        do: {{row, col}, %Square{}}
   end
 
   # Deactivates the grid square at the given coordinate.
