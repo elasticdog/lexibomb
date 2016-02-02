@@ -42,6 +42,14 @@ defmodule LexibombServer.Board.Square do
   end
 
   @doc """
+  Returns `true` if the square is revealed.
+  """
+  @spec revealed?(t) :: boolean
+  def revealed?(square) do
+    square.revealed?
+  end
+
+  @doc """
   Returns a copy of `square` with an incremented adjacent bomb count.
   """
   @spec inc_adjacent_bombs(t) :: t
@@ -66,11 +74,35 @@ defmodule LexibombServer.Board.Square do
   end
 
   @doc """
+  Returns `true` if the square has no tile placed on it.
+  """
+  def playable?(square) do
+    case square.tile do
+      "" -> true
+      _ -> false
+    end
+  end
+
+  @doc """
   Returns a copy of `square` in the revealed state with `tile` placed on it.
   """
   @spec place_tile(t, String.t) :: t
   def place_tile(square, tile) when byte_size(tile) === 1 do
     %{square | revealed?: true, tile: tile}
+  end
+
+  @doc """
+  Returns `true` if the square has any adjacent bombs.
+  """
+  def any_adjacent_bombs?(square) do
+    square.adjacent_bombs > 0
+  end
+
+  @doc """
+  Returns `true` if the square has no adjacent bombs.
+  """
+  def no_adjacent_bombs?(square) do
+    square.adjacent_bombs == 0
   end
 
   @doc false
