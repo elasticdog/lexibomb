@@ -156,6 +156,28 @@ defmodule LexibombServer.Board do
   end
 
   @doc """
+  Places a tile on the board square at the given coordinate.
+
+  Returns `:ok` on success, or `{:error, :badarg}` on failure.
+  """
+  @spec place_tile(pid, coord, String.t) :: :ok | {:error, :badarg}
+  def place_tile(pid, coord, tile) when byte_size(tile) === 1 do
+    case parse_coord(coord) do
+      {:ok, coord} ->
+        do_place_tile(pid, coord, tile)
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
+  @spec do_place_tile(pid, Grid.coord, String.t) :: :ok
+  defp do_place_tile(pid, coord, tile) do
+    Agent.update(pid, fn board ->
+      %{board | grid: Grid.place_tile(board.grid, coord, tile)}
+    end)
+  end
+
+  @doc """
   Parses and normalizes a given coordinate.
 
   It will parse any of the valid `LexibombServer.Board.coord` forms and will

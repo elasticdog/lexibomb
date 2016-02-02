@@ -82,6 +82,22 @@ defmodule LexibombServer.Board.Grid do
     end)
   end
 
+  @doc """
+  Places a tile on the grid square at the given coordinate.
+
+  No safety checking is perfomed.
+  """
+  @spec place_tile(t, coord, String.t) :: t
+  def place_tile(grid, coord, tile) do
+    square = Map.get(grid, coord)
+
+    grid
+    |> Map.update!(coord, fn square ->
+         Square.place_tile(square, tile)
+       end)
+    # |> reveal_adjacent(adjacent_coords(coord))
+  end
+
   @spec active_squares(t) :: t
   def active_squares(grid) do
     grid

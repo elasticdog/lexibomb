@@ -65,6 +65,14 @@ defmodule LexibombServer.Board.Square do
     %{square | bomb?: true}
   end
 
+  @doc """
+  Returns a copy of `square` in the revealed state with `tile` placed on it.
+  """
+  @spec place_tile(t, String.t) :: t
+  def place_tile(square, tile) when byte_size(tile) === 1 do
+    %{square | revealed?: true, tile: tile}
+  end
+
   @doc false
   @spec __render_state__(t) :: String.t
   def __render_state__(square) do
