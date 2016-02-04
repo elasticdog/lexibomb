@@ -20,6 +20,7 @@ defmodule LexibombServer.Mixfile do
       deps: deps,
       docs: [
         source_url_pattern: "#{@source_url}/blob/#{source_ref}/apps/lexibomb_server/%{path}#L%{line}",
+        extras: ["../../pages/Glossary.md", "../../pages/Rules.md"]
       ],
     ]
   end
