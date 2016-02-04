@@ -20,10 +20,11 @@ defmodule LexibombServer.Board do
 
   @type coord :: Grid.coord | {non_neg_integer, String.t} | String.t
   @type seed :: {integer, integer, integer}
+  @type board_options :: [size: pos_integer, seed: seed, bomb_count: pos_integer]
   @type t :: %{grid: Grid.t, seed: seed}
 
   @default_size 15
-  @bomb_count 22
+  @default_bomb_count 22
 
   @doc """
   Starts an agent linked to the current process, storing the state of a new
@@ -34,40 +35,36 @@ defmodule LexibombServer.Board do
       iex> {:ok, pid} = LexibombServer.Board.start_link
       iex> is_pid(pid)
       true
+
+  ## Options
+
+  Same as `new/1`.
   """
   @spec start_link :: Agent.on_start
-  def start_link do
-    start_link(new)
+  def start_link(opts \\ []) do
+    Agent.start_link(fn -> new(opts) end)
   end
 
   @doc """
-  Starts an agent linked to the current process, storing the state of the given
-  `board`.
-  """
-  @spec start_link(t) :: Agent.on_start
-  def start_link(%LexibombServer.Board{} = board) do
-    Agent.start_link(fn -> board end)
-  end
+  Creates a new game board with the given options.
 
-  @doc """
-  Creates a board of the given `size`.
+  ## Options
 
-  A unique seed for the PRNG is generated and stored with the board.
-  """
-  @spec new(pos_integer) :: t
-  def new(size \\ @default_size) do
-    new(size, Utils.unique_seed)
-  end
+  The accepted options are:
 
-  @doc """
-  Creates a board of the given `size` with a specific PRNG `seed`.
+    * `:size` - create a board of the given size; the default is #{@default_size}
+    * `:seed` - a seed for the PRNG; the default is a uniquely generated seed
+    * `:bomb_count` - the number of bombs to randomly place on the board;
+       the default is #{@default_bomb_count}
   """
-  @spec new(pos_integer, seed) :: t
-  def new(size, seed) do
-    %LexibombServer.Board{
-      grid: Grid.init(size),
-      seed: seed,
-    }
+  @spec new(board_options) :: t
+  def new(opts \\ []) do
+    size = opts |> Keyword.get(:size, @default_size)
+    seed = opts |> Keyword.get(:seed, Utils.unique_seed)
+    bomb_count = opts |> Keyword.get(:bomb_count, @default_bomb_count)
+
+    %LexibombServer.Board{grid: Grid.init(size), seed: seed}
+    |> place_random_bombs(bomb_count)
   end
 
   @doc """
@@ -143,16 +140,17 @@ defmodule LexibombServer.Board do
 
   The board's PRNG seed is used to make this operation idempotent.
   """
-  @spec place_random_bombs(pid, pos_integer) :: :ok
-  def place_random_bombs(pid, count \\ @bomb_count) do
-    board = get(pid)
+  @spec place_random_bombs(t, pos_integer) :: t
+  def place_random_bombs(%LexibombServer.Board{} = board, count \\ @default_bomb_count) do
     _ = Utils.seed_the_prng(board.seed)
 
-    board.grid
-    |> Grid.active_squares
-    |> Map.keys
-    |> Enum.take_random(count)
-    |> do_place_bombs(pid)
+    coords =
+      board.grid
+      |> Grid.active_squares
+      |> Map.keys
+      |> Enum.take_random(count)
+
+    %{board | grid: Grid.place_bombs(board.grid, coords)}
   end
 
   @doc """
