@@ -85,43 +85,45 @@ defmodule LexibombServer.Board.Grid do
   @doc """
   Places a tile on the grid square at the given coordinate.
 
-  No safety checking is perfomed.
+  This triggers a cascading reveal.
   """
   @spec place_tile(t, coord, String.t) :: t
   def place_tile(grid, coord, tile) do
-    square = Map.get(grid, coord)
-
-    grid =
-      Map.update!(grid, coord, fn square ->
-        Square.place_tile(square, tile)
-      end)
-
-    if Square.no_adjacent_bombs?(square) do
-      cascading_reveal(grid, coord)
-    else
-      grid
-    end
+    Map.update!(grid, coord, fn square ->
+      Square.place_tile(square, tile)
+    end)
+    |> cascading_reveal(coord)
   end
 
+  @doc """
+  Reveal the square at the given coordinate; if no bombs are adjacent,
+  recursively reveal all adjacent squares.
+  """
   @spec cascading_reveal(t, coord) :: t
   def cascading_reveal(grid, coord) do
-    adjacent_coords(coord) |> Enum.reduce(grid, &do_cascading_reveal/2)
+    square = Map.get(grid, coord)
+
+    if Square.no_adjacent_bombs?(square) do
+      adjacent_coords(coord) |> Enum.reduce(grid, &do_cascading_reveal/2)
+    else
+      reveal(grid, coord)
+    end
   end
 
   defp do_cascading_reveal(coord, grid) do
     square = Map.get(grid, coord)
 
-    cond do
-      Square.revealed?(square) ->
-        grid
-      Square.any_adjacent_bombs?(square) ->
-        reveal(grid, coord)
-      true ->
-        reveal(grid, coord)
-        |> cascading_reveal(coord)
+    if Square.revealed?(square) do
+      # stopping criterion
+      grid
+    else
+      reveal(grid, coord) |> cascading_reveal(coord)
     end
   end
 
+  @doc """
+  Reveals the grid square at the given coordinate.
+  """
   @spec reveal(t, coord) :: t
   def reveal(grid, coord) do
     Map.update!(grid, coord, fn square ->
@@ -129,6 +131,9 @@ defmodule LexibombServer.Board.Grid do
     end)
   end
 
+  @doc """
+  Returns a map containing just the active squares on the given `grid`.
+  """
   @spec active_squares(t) :: t
   def active_squares(grid) do
     grid

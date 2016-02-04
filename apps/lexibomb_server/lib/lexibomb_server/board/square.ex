@@ -92,13 +92,6 @@ defmodule LexibombServer.Board.Square do
   end
 
   @doc """
-  Returns `true` if the square has any adjacent bombs.
-  """
-  def any_adjacent_bombs?(square) do
-    square.adjacent_bombs > 0
-  end
-
-  @doc """
   Returns `true` if the square has no adjacent bombs.
   """
   def no_adjacent_bombs?(square) do
