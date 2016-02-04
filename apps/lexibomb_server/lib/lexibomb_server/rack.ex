@@ -5,7 +5,7 @@ defmodule LexibombServer.Rack do
   A rack is a list of (usually 7) tiles, like `["E", "E", "L", "R", "T", "T", "S"]`.
   """
 
-  defstruct [:tiles]
+  defstruct tiles: []
 
   @type t :: %{tiles: [String.t]}
 
@@ -91,12 +91,13 @@ defmodule LexibombServer.Rack do
   end
 
   def remove(rack, letters) when is_list(letters) do
-    letters
-    |> Enum.reduce(rack.tiles, fn(letter, rack) ->
-         if lowercase?(letter), do: letter = @blank
-         List.delete(rack, letter)
-       end)
-    |> new
+    tiles =
+      Enum.reduce(letters, rack.tiles, fn(letter, tiles) ->
+        if lowercase?(letter), do: letter = @blank
+        tiles |> List.delete(letter)
+      end)
+
+    new(tiles)
   end
 
   @spec lowercase?(String.t) :: boolean
