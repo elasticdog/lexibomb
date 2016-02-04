@@ -16,6 +16,7 @@ defmodule LexibombServer.Board do
   defstruct [:grid, :seed]
 
   alias LexibombServer.Board.Grid
+  alias LexibombServer.Play
   alias LexibombServer.Utils
 
   @type coord :: Grid.coord | {non_neg_integer, String.t} | String.t
@@ -237,6 +238,17 @@ defmodule LexibombServer.Board do
   end
 
   def parse_coord(_coord), do: {:error, :badarg}
+
+  @doc """
+  Make a play of tiles on the board.
+  """
+  @spec make_play(pid, LexibombServer.Play.t) :: :ok | {:error, :badarg}
+  def make_play(pid, play) do
+    with {:ok, placements} <- Play.letters_with_coords(play),
+      do: Enum.each(placements, fn {tile, coord} ->
+            do_place_tile(pid, coord, tile)
+          end)
+  end
 
   @doc """
   Returns `true` if the given coordinate points to a square on the board.
