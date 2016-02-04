@@ -63,7 +63,7 @@
         LexibombServer.Board.Grid
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -137,6 +137,9 @@ a 17 x 17 grid underneath.</p>
     <a href="#active_squares/1">active_squares(grid)</a>
   </div>
   
+    <div class="summary-synopsis"><p>Returns a map containing just the active squares on the given <code class="inline">grid</code></p>
+</div>
+  
 </div>
 <div class="summary-row">
   <div class="summary-signature">
@@ -151,6 +154,10 @@ a 17 x 17 grid underneath.</p>
   <div class="summary-signature">
     <a href="#cascading_reveal/2">cascading_reveal(grid, coord)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Reveal the square at the given coordinate; if no bombs are adjacent,
+recursively reveal all adjacent squares</p>
+</div>
   
 </div>
 <div class="summary-row">
@@ -193,6 +200,9 @@ a 17 x 17 grid underneath.</p>
   <div class="summary-signature">
     <a href="#reveal/2">reveal(grid, coord)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Reveals the grid square at the given coordinate</p>
+</div>
   
 </div>
 <div class="summary-row">
@@ -266,7 +276,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">active_squares(grid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L133" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L138" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -282,7 +292,8 @@ a 17 x 17 grid underneath.</p>
     </div>
   
   <section class="docstring">
-    
+    <p>Returns a map containing just the active squares on the given <code class="inline">grid</code>.</p>
+
   </section>
 </div>
 <div class="detail" id="board_size/1">
@@ -292,7 +303,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">board_size(grid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L42" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L42" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -320,7 +331,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">cascading_reveal(grid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L107" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L103" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -336,7 +347,9 @@ a 17 x 17 grid underneath.</p>
     </div>
   
   <section class="docstring">
-    
+    <p>Reveal the square at the given coordinate; if no bombs are adjacent,
+recursively reveal all adjacent squares.</p>
+
   </section>
 </div>
 <div class="detail" id="init/1">
@@ -346,7 +359,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">init(size)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L32" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L32" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -373,7 +386,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">place_bomb(grid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L63" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L63" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -400,7 +413,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">place_bombs(grid, coords)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L79" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L79" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -427,7 +440,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">place_tile(grid, coord, tile)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L91" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L91" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -444,7 +457,7 @@ a 17 x 17 grid underneath.</p>
   
   <section class="docstring">
     <p>Places a tile on the grid square at the given coordinate.</p>
-<p>No safety checking is perfomed.</p>
+<p>This triggers a cascading reveal.</p>
 
   </section>
 </div>
@@ -455,7 +468,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">reveal(grid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L126" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L128" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -471,7 +484,8 @@ a 17 x 17 grid underneath.</p>
     </div>
   
   <section class="docstring">
-    
+    <p>Reveals the grid square at the given coordinate.</p>
+
   </section>
 </div>
 <div class="detail" id="size/1">
@@ -481,7 +495,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">size(grid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L52" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L52" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -509,7 +523,7 @@ a 17 x 17 grid underneath.</p>
     </a>
     <span class="signature">valid_coord?(grid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L140" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L145" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     

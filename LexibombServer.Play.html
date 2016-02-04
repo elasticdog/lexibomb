@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.11.4">
-    <title>LexibombServer – Lexibomb Server v0.0.1-dev</title>
+    <title>LexibombServer.Play – Lexibomb Server v0.0.1-dev</title>
     <link rel="stylesheet" href="dist/app-1e374caa3d.css" />
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -60,15 +60,19 @@
 
       <h1>
         <small class="visible-xs">Lexibomb Server v0.0.1-dev</small>
-        LexibombServer
+        LexibombServer.Play
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/play.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
       </h1>
 
+      
+        <section id="moduledoc" class="docstring">
+          
+        </section>
       
 
       
@@ -80,6 +84,25 @@
             Summary
           </h1>
           
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:direction/0">direction()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+  </div>
+  
+</div>
+
+  </div>
+
 
           
   <div class="summary-functions summary">
@@ -88,10 +111,11 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#start/2">start(type, args)</a>
+    <a href="#letters_with_coords/1">letters_with_coords(play)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c::application.start/2</code></p>
+    <div class="summary-synopsis"><p>Returns the list of letters with each letter wrapped in a tuple alongside its
+coordinate</p>
 </div>
   
 </div>
@@ -107,6 +131,26 @@
       
 
       
+        <section id="types" class="types details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div id="t:direction/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:direction/0">direction</a> :: :across | :down</code></pre>
+  
+</div>
+<div id="t:t/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %{start: <a href="LexibombServer.Board.html#t:coord/0">LexibombServer.Board.coord</a>, direction: <a href="#t:direction/0">direction</a>, letters: [<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>], rack_leave: [<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>]}</code></pre>
+  
+</div>
+
+          </div>
+        </section>
+      
 
       
         <section id="functions" class="details-list">
@@ -116,21 +160,33 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="start/2">
+          <div class="detail" id="letters_with_coords/1">
   <div class="detail-header">
-    <a href="#start/2" class="detail-link" title="Link to this function">
+    <a href="#letters_with_coords/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">start(type, args)</span>
+    <span class="signature">letters_with_coords(play)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server.ex#L6" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/play.ex#L24" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">letters_with_coords(<a href="#t:t/0">t</a>) ::
+  {:ok, [{<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a>}]} |
+  {:error, :badarg}</code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
-    <p>Callback implementation for <code class="inline">c::application.start/2</code>.</p>
+    <p>Returns the list of letters with each letter wrapped in a tuple alongside its
+coordinate.</p>
 
   </section>
 </div>
