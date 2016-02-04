@@ -63,7 +63,7 @@
         LexibombServer.Board.Square
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -118,6 +118,15 @@ sets it to the revealed state.</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#any_adjacent_bombs?/1">any_adjacent_bombs?(square)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if the square has any adjacent bombs</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#deactivate/1">deactivate(square)</a>
   </div>
   
@@ -136,6 +145,15 @@ sets it to the revealed state.</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#no_adjacent_bombs?/1">no_adjacent_bombs?(square)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if the square has no adjacent bombs</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#place_bomb/1">place_bomb(square)</a>
   </div>
   
@@ -145,10 +163,37 @@ sets it to the revealed state.</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#place_tile/2">place_tile(square, tile)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a copy of <code class="inline">square</code> in the revealed state with <code class="inline">tile</code> placed on it</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#playable?/1">playable?(square)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if the square has no tile placed on it</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#reveal/1">reveal(square)</a>
   </div>
   
     <div class="summary-synopsis"><p>Returns a copy of <code class="inline">square</code> in the revealed state</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#revealed?/1">revealed?(square)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if the square is revealed</p>
 </div>
   
 </div>
@@ -196,7 +241,7 @@ sets it to the revealed state.</p>
     </a>
     <span class="signature">active?(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L40" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L40" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -216,6 +261,24 @@ sets it to the revealed state.</p>
 
   </section>
 </div>
+<div class="detail" id="any_adjacent_bombs?/1">
+  <div class="detail-header">
+    <a href="#any_adjacent_bombs?/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">any_adjacent_bombs?(square)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L97" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Returns <code class="inline">true</code> if the square has any adjacent bombs.</p>
+
+  </section>
+</div>
 <div class="detail" id="deactivate/1">
   <div class="detail-header">
     <a href="#deactivate/1" class="detail-link" title="Link to this function">
@@ -223,7 +286,7 @@ sets it to the revealed state.</p>
     </a>
     <span class="signature">deactivate(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L32" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L32" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -250,7 +313,7 @@ sets it to the revealed state.</p>
     </a>
     <span class="signature">inc_adjacent_bombs(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L48" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L56" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -270,6 +333,24 @@ sets it to the revealed state.</p>
 
   </section>
 </div>
+<div class="detail" id="no_adjacent_bombs?/1">
+  <div class="detail-header">
+    <a href="#no_adjacent_bombs?/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">no_adjacent_bombs?(square)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L104" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Returns <code class="inline">true</code> if the square has no adjacent bombs.</p>
+
+  </section>
+</div>
 <div class="detail" id="place_bomb/1">
   <div class="detail-header">
     <a href="#place_bomb/1" class="detail-link" title="Link to this function">
@@ -277,7 +358,7 @@ sets it to the revealed state.</p>
     </a>
     <span class="signature">place_bomb(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L64" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L72" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -297,6 +378,51 @@ sets it to the revealed state.</p>
 
   </section>
 </div>
+<div class="detail" id="place_tile/2">
+  <div class="detail-header">
+    <a href="#place_tile/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">place_tile(square, tile)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L90" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">place_tile(<a href="#t:t/0">t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="#t:t/0">t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns a copy of <code class="inline">square</code> in the revealed state with <code class="inline">tile</code> placed on it.</p>
+
+  </section>
+</div>
+<div class="detail" id="playable?/1">
+  <div class="detail-header">
+    <a href="#playable?/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">playable?(square)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L79" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Returns <code class="inline">true</code> if the square has no tile placed on it.</p>
+
+  </section>
+</div>
 <div class="detail" id="reveal/1">
   <div class="detail-header">
     <a href="#reveal/1" class="detail-link" title="Link to this function">
@@ -304,7 +430,7 @@ sets it to the revealed state.</p>
     </a>
     <span class="signature">reveal(square)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/2d685b86d17d119e4e1286f4859e78a641c31d6b/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L56" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L64" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -321,6 +447,33 @@ sets it to the revealed state.</p>
   
   <section class="docstring">
     <p>Returns a copy of <code class="inline">square</code> in the revealed state.</p>
+
+  </section>
+</div>
+<div class="detail" id="revealed?/1">
+  <div class="detail-header">
+    <a href="#revealed?/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">revealed?(square)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/660fe54e63070b4b04a06da754b7813977e0ddc0/apps/lexibomb_server/lib/lexibomb_server/board/square.ex#L48" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">revealed?(<a href="#t:t/0">t</a>) :: boolean</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns <code class="inline">true</code> if the square is revealed.</p>
 
   </section>
 </div>
