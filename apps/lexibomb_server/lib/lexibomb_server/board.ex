@@ -45,7 +45,7 @@ defmodule LexibombServer.Board do
   `board`.
   """
   @spec start_link(t) :: Agent.on_start
-  def start_link(board) do
+  def start_link(%LexibombServer.Board{} = board) do
     Agent.start_link(fn -> board end)
   end
 
@@ -82,7 +82,7 @@ defmodule LexibombServer.Board do
   Stores the state of `board` in the given process.
   """
   @spec set(t, pid) :: :ok
-  def set(board, pid) do
+  def set(%LexibombServer.Board{} = board, pid) do
     Agent.update(pid, fn _ -> board end)
   end
 
@@ -283,7 +283,7 @@ defmodule LexibombServer.Board do
     end)
   end
 
-  def __reveal__(board) do
+  def __reveal__(%LexibombServer.Board{} = board) do
     %{board | grid: Grid.__reveal__(board.grid)}
   end
 end
