@@ -97,7 +97,7 @@ defmodule LexibombServer.Rack do
         tiles |> List.delete(letter)
       end)
 
-    new(tiles)
+    %{rack | tiles: tiles}
   end
 
   @spec lowercase?(String.t) :: boolean
