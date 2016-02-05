@@ -55,7 +55,7 @@ defmodule LexibombServer.WordList do
       iex> LexibombServer.WordList.prefixes(word_list)
       #MapSet<["", "H", "HE", "HEL", "HELL", "HELP", "HELPE"]>
   """
-  @spec prefixes(MapSet.t) :: MapSet.t
+  @spec prefixes(Enum.t) :: MapSet.t
   def prefixes(word_list) do
     Enum.reduce(word_list, MapSet.new([""]), fn word, prefixes ->
       word |> do_prefixes |> MapSet.union(prefixes)
