@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.11.4">
+    <title>Glossary – Lexibomb Server v0.0.1-dev</title>
+    <link rel="stylesheet" href="dist/app-1e374caa3d.css" />
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="extras">
+
+<div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
+  </button>
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Lexibomb Server
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.0.1-dev
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div id="content" class="content-inner">
+
+
+<h1>Glossary</h1>
+<h2 id="anchor-square"> Anchor square</h2><p>A square that is adjacent to a tile previously played on the board. Every play
+(subsequent to the first play) must place a tile on an anchor square.</p>
+<h2 id="bomb-square"> Bomb square</h2><p>A randomly-placed penalty square that causes a play to score no points. All
+squares adjacent to a bomb square have an increased bonus.</p>
+<h2 id="bingo"> Bingo</h2><p>A bonus gained by using all seven tiles from player’s rack in one play.</p>
+<h2 id="blank"> Blank</h2><p>A tile with no letter on it; the player who places it on the board gets to
+choose which letter it will represent.</p>
+<h2 id="board"> Board</h2><p>A grid of squares onto which players play tiles to make words.</p>
+<h2 id="bonus"> Bonus</h2><p>Some squares give you bonus scores: double or triple letter or word scores.</p>
+<h2 id="cross-word"> Cross word</h2><p>A word formed in the other direction from a play. For example, a play forms
+a word in the across direction, and in doing so, places a letter that extends
+a word in the down direction. This new extended cross word must be in the
+word list.</p>
+<h2 id="direction"> Direction</h2><p>Every play must be in either the ACROSS or DOWN direction.</p>
+<h2 id="game"> Game</h2><p>Players take turns making plays until one player has no more tiles. After
+making a play, the player’s rack is replenished with tiles until the player has
+7 tiles or until the bag of tiles is empty.</p>
+<h2 id="letter-bonus"> Letter bonus</h2><p>The letter bonus is 2 when a tile is first placed on a double letter square and
+3 when first placed on a triple letter square; it is 1 for a tile already on
+the board, or for a new tile played on a non-letter-bonus square.</p>
+<h2 id="letter-score"> Letter score</h2><p>The letter score is the value of the letter on the tile times the letter bonus
+score.</p>
+<p>The letter score for a blank tile is always zero.</p>
+<h2 id="play"> Play</h2><p>A play consists of placing some tiles on the board to form a continuous string
+of letters in one direction (across or down), such that only valid words are
+formed, and such that one of the tiles is placed on an anchor square.</p>
+<h2 id="prefix"> Prefix</h2><p>A string of zero or more letters that starts some word in the word list. Not
+a concept that has to do with the rules of the game; it will be important in
+the algorithm to finds valid plays.</p>
+<h2 id="rack"> Rack</h2><p>A collection of up to seven tiles that a player may use to make words.</p>
+<h2 id="rack-leave"> Rack leave</h2><p>The collection of tiles left on a player’s rack after making a play.</p>
+<h2 id="score"> Score</h2><p>The points awarded for a play, consisting of the sum of the word scores for
+each word made (the main word and possibly any cross words), plus a bingo bonus
+if all seven letters are used.</p>
+<h2 id="square"> Square</h2><p>A location on the board; a square can hold one tile.</p>
+<h2 id="tile"> Tile</h2><p>A letter (or a blank) that can be played on the board to form words.</p>
+<h2 id="word"> Word</h2><p>A string of letters. Words in the word list are all uppercase.</p>
+<h2 id="word-bonus"> Word bonus</h2><p>The word bonus starts at 1, and is multiplied by 2 for each double word square
+and 3 for each triple word square covered by a tile on this play. If a tile is
+played on a bomb square, the word bonus is 0 (i.e., no points are earned for
+the play).</p>
+<h2 id="word-list"> Word list</h2><p>A set of all legal words.</p>
+<h2 id="word-score"> Word score</h2><p>The word score is the sum of the letter scores for each tile (either placed by
+the player or already on the board but part of the word) times the word bonus
+score.</p>
+
+    <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.11.4),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+      <button class="night-mode-toggle" />
+    </footer>
+  </div>
+</section>
+</div>
+  <script src="dist/app-6d2e071366.js"></script>
+  </body>
+</html>
+

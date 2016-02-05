@@ -63,7 +63,7 @@
         LexibombServer.Rack
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/a19a6313b4c6e3921e2a2d119e4f527fa95cab6b/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -86,6 +86,19 @@
             Summary
           </h1>
           
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+  </div>
+  
+</div>
+
+  </div>
+
 
           
   <div class="summary-functions summary">
@@ -103,10 +116,19 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#remove/2">remove(rack, tiles)</a>
+    <a href="#new/1">new(tiles)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Returns a copy of <code class="inline">rack</code> with the given <code class="inline">tiles</code> removed</p>
+    <div class="summary-synopsis"><p>Creates a new rack with the given tiles</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#remove/2">remove(rack, letters)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a copy of <code class="inline">rack</code> with the given letters removed</p>
 </div>
   
 </div>
@@ -121,6 +143,22 @@
         </section>
       
 
+      
+        <section id="types" class="types details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div id="t:t/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %{tiles: [<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>]}</code></pre>
+  
+</div>
+
+          </div>
+        </section>
       
 
       
@@ -138,7 +176,7 @@
     </a>
     <span class="signature">letters(rack)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L25" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a19a6313b4c6e3921e2a2d119e4f527fa95cab6b/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L57" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -148,7 +186,7 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">letters([<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>]) :: [<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>]</code></pre>
+          <pre><code class="elixir">letters(<a href="#t:t/0">t</a>) :: [<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>]</code></pre>
         
       </div>
     </div>
@@ -157,22 +195,22 @@
     <p>Returns the distinct letters in a <code class="inline">rack</code>.</p>
 <p>Includes the lowercase alphabet if there are any blank tiles.</p>
 <h2>Examples</h2>
-<pre><code class="iex elixir">iex&gt; LexibombServer.Rack.letters ~W(E E L R T T S)
+<pre><code class="iex elixir">iex&gt; LexibombServer.Rack.new(&quot;EELRTTS&quot;) |&gt; LexibombServer.Rack.letters
 [&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;S&quot;]
-iex&gt; LexibombServer.Rack.letters ~W(E E L R T T _)
+iex&gt; LexibombServer.Rack.new(&quot;EELRTT_&quot;) |&gt; LexibombServer.Rack.letters
 [&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;,
  &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;]</code></pre>
 
   </section>
 </div>
-<div class="detail" id="remove/2">
+<div class="detail" id="new/1">
   <div class="detail-header">
-    <a href="#remove/2" class="detail-link" title="Link to this function">
+    <a href="#new/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">remove(rack, tiles)</span>
+    <span class="signature">new(tiles)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/256a2c2b95f6b2a9599563e020e1f67441c26d96/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L50" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/a19a6313b4c6e3921e2a2d119e4f527fa95cab6b/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L31" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -182,20 +220,57 @@ iex&gt; LexibombServer.Rack.letters ~W(E E L R T T _)
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">remove([<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>], [<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>]) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+          <pre><code class="elixir">new(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | [<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>]) :: <a href="#t:t/0">t</a></code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    <p>Returns a copy of <code class="inline">rack</code> with the given <code class="inline">tiles</code> removed.</p>
-<p>If any of the given tiles are lowercase letters, a corresponding blank tile
-is removed from the rack.</p>
+    <p>Creates a new rack with the given tiles.</p>
+<p>The tiles are normalized to uppercase.</p>
+<p><code class="inline">tiles</code> can be either a string, which will be tokenized for you, or a list of
+tiles.</p>
 <h2>Examples</h2>
-<pre><code class="iex elixir">iex&gt; LexibombServer.Rack.remove ~W(E E L R T T S), ~W(S E T)
-[&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;]
-iex&gt; LexibombServer.Rack.remove ~W(E E L R T T _), ~W(T R E a T)
-[&quot;E&quot;, &quot;L&quot;]</code></pre>
+<pre><code class="iex elixir">iex&gt; LexibombServer.Rack.new &quot;Hello&quot;
+%LexibombServer.Rack{tiles: [&quot;H&quot;, &quot;E&quot;, &quot;L&quot;, &quot;L&quot;, &quot;O&quot;]}
+iex&gt; LexibombServer.Rack.new ~W(E E L R T T _)
+%LexibombServer.Rack{tiles: [&quot;E&quot;, &quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;T&quot;, &quot;_&quot;]}</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="remove/2">
+  <div class="detail-header">
+    <a href="#remove/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">remove(rack, letters)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/a19a6313b4c6e3921e2a2d119e4f527fa95cab6b/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L86" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">remove(<a href="#t:t/0">t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | [<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>]) :: <a href="#t:t/0">t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns a copy of <code class="inline">rack</code> with the given letters removed.</p>
+<p>If any of the given letters are lowercase, a corresponding blank tile is
+removed from the rack.</p>
+<p><code class="inline">letters</code> can be either a string, which will be tokenized for you, or a list
+of letters.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; LexibombServer.Rack.new(&quot;EELRTTS&quot;) |&gt; LexibombServer.Rack.remove(&quot;SET&quot;)
+%LexibombServer.Rack{tiles: [&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;]}
+iex&gt; LexibombServer.Rack.new(&quot;EELRTT_&quot;) |&gt; LexibombServer.Rack.remove(~W(T R E a T))
+%LexibombServer.Rack{tiles: [&quot;E&quot;, &quot;L&quot;]}</code></pre>
 
   </section>
 </div>
