@@ -177,7 +177,7 @@ defmodule LexibombServer.Board do
   end
 
   @doc """
-  Parses and normalizes a given coordinate.
+  Parses and normalizes the given coordinate.
 
   It will parse any of the valid `LexibombServer.Board.coord` forms and will
   normalize them to the underlying `LexibombServer.Board.Grid.coord` type. If
