@@ -63,7 +63,7 @@
         LexibombServer.Rack
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -125,6 +125,15 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#prefixes/1">prefixes(rack)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the set of all prefixes that can be made from the tiles in a <code class="inline">rack</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#remove/2">remove(rack, letters)</a>
   </div>
   
@@ -176,7 +185,7 @@
     </a>
     <span class="signature">letters(rack)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L57" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L61" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -197,6 +206,7 @@
 <h2>Examples</h2>
 <pre><code class="iex elixir">iex&gt; LexibombServer.Rack.new(&quot;EELRTTS&quot;) |&gt; LexibombServer.Rack.letters
 [&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;S&quot;]
+
 iex&gt; LexibombServer.Rack.new(&quot;EELRTT_&quot;) |&gt; LexibombServer.Rack.letters
 [&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;,
  &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;]</code></pre>
@@ -210,7 +220,7 @@ iex&gt; LexibombServer.Rack.new(&quot;EELRTT_&quot;) |&gt; LexibombServer.Rack.l
     </a>
     <span class="signature">new(tiles)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L31" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L34" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -233,8 +243,40 @@ tiles.</p>
 <h2>Examples</h2>
 <pre><code class="iex elixir">iex&gt; LexibombServer.Rack.new &quot;Hello&quot;
 %LexibombServer.Rack{tiles: [&quot;H&quot;, &quot;E&quot;, &quot;L&quot;, &quot;L&quot;, &quot;O&quot;]}
+
 iex&gt; LexibombServer.Rack.new ~W(E E L R T T _)
 %LexibombServer.Rack{tiles: [&quot;E&quot;, &quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;, &quot;T&quot;, &quot;_&quot;]}</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="prefixes/1">
+  <div class="detail-header">
+    <a href="#prefixes/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">prefixes(rack)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L118" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">prefixes(<a href="#t:t/0">t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/MapSet.html#t:t/0">MapSet.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the set of all prefixes that can be made from the tiles in a <code class="inline">rack</code>.</p>
+<h2>Examples</h2>
+<pre><code class="elixir">&gt; rack = LexibombServer.Rack.new(&quot;ABC&quot;)
+&gt; LexibombServer.Rack.prefixes(rack)
+#MapSet&lt;[&quot;&quot;, &quot;A&quot;, &quot;AB&quot;, &quot;ABC&quot;, &quot;AC&quot;, &quot;B&quot;, &quot;BA&quot;, &quot;BAC&quot;, &quot;C&quot;, &quot;CA&quot;, &quot;CAB&quot;]&gt;</code></pre>
 
   </section>
 </div>
@@ -245,7 +287,7 @@ iex&gt; LexibombServer.Rack.new ~W(E E L R T T _)
     </a>
     <span class="signature">remove(rack, letters)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L86" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/rack.ex#L91" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -269,6 +311,7 @@ of letters.</p>
 <h2>Examples</h2>
 <pre><code class="iex elixir">iex&gt; LexibombServer.Rack.new(&quot;EELRTTS&quot;) |&gt; LexibombServer.Rack.remove(&quot;SET&quot;)
 %LexibombServer.Rack{tiles: [&quot;E&quot;, &quot;L&quot;, &quot;R&quot;, &quot;T&quot;]}
+
 iex&gt; LexibombServer.Rack.new(&quot;EELRTT_&quot;) |&gt; LexibombServer.Rack.remove(~W(T R E a T))
 %LexibombServer.Rack{tiles: [&quot;E&quot;, &quot;L&quot;]}</code></pre>
 

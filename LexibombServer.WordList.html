@@ -63,7 +63,7 @@
         LexibombServer.WordList
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -111,10 +111,19 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#prefix?/1">prefix?(prefix)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Checks if the given <code class="inline">prefix</code> is a valid prefix in the word list</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#prefixes/1">prefixes(word_list)</a>
   </div>
   
-    <div class="summary-synopsis"><p>The set of all prefixes of each word in a given <code class="inline">word_list</code></p>
+    <div class="summary-synopsis"><p>Returns the set of all prefixes of each word in the given <code class="inline">word_list</code></p>
 </div>
   
 </div>
@@ -156,7 +165,7 @@ of <code class="inline">word_list</code></p>
     </a>
     <span class="signature">get()</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L36" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L25" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -183,7 +192,7 @@ of <code class="inline">word_list</code></p>
     </a>
     <span class="signature">member?(word)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L44" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L33" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -203,6 +212,33 @@ of <code class="inline">word_list</code></p>
 
   </section>
 </div>
+<div class="detail" id="prefix?/1">
+  <div class="detail-header">
+    <a href="#prefix?/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">prefix?(prefix)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L43" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">prefix?(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: boolean</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Checks if the given <code class="inline">prefix</code> is a valid prefix in the word list.</p>
+
+  </section>
+</div>
 <div class="detail" id="prefixes/1">
   <div class="detail-header">
     <a href="#prefixes/1" class="detail-link" title="Link to this function">
@@ -210,7 +246,7 @@ of <code class="inline">word_list</code></p>
     </a>
     <span class="signature">prefixes(word_list)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L60" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L59" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -226,7 +262,7 @@ of <code class="inline">word_list</code></p>
     </div>
   
   <section class="docstring">
-    <p>The set of all prefixes of each word in a given <code class="inline">word_list</code>.</p>
+    <p>Returns the set of all prefixes of each word in the given <code class="inline">word_list</code>.</p>
 <h2>Examples</h2>
 <pre><code class="iex elixir">iex&gt; word_list = MapSet.new([&quot;HELLO&quot;, &quot;HELP&quot;, &quot;HELPER&quot;])
 iex&gt; LexibombServer.WordList.prefixes(word_list)
@@ -241,7 +277,7 @@ iex&gt; LexibombServer.WordList.prefixes(word_list)
     </a>
     <span class="signature">start_link(word_list \\ default_list)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/ae28dab187f5ea885c9c7b6b78f3223cc436fa78/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L14" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/word_list.ex#L14" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
