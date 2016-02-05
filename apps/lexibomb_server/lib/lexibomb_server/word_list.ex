@@ -30,6 +30,14 @@ defmodule LexibombServer.WordList do
   end
 
   @doc """
+  Retrieves the default word list from the agent.
+  """
+  @spec get :: MapSet.t
+  def get do
+    Agent.get(__MODULE__, &(&1))
+  end
+
+  @doc """
   Checks if the word list contains `word`.
   """
   @spec member?(String.t) :: boolean
@@ -37,5 +45,28 @@ defmodule LexibombServer.WordList do
     Agent.get(__MODULE__, fn word_list ->
       normalize(word) in word_list
     end)
+  end
+
+  @doc """
+  The set of all prefixes of each word in a given `word_list`.
+
+  ## Examples
+
+      iex> word_list = MapSet.new(["HELLO", "HELP", "HELPER"])
+      iex> LexibombServer.WordList.prefixes(word_list)
+      #MapSet<["", "H", "HE", "HEL", "HELL", "HELP", "HELPE"]>
+  """
+  @spec prefixes(MapSet.t) :: MapSet.t
+  def prefixes(word_list) do
+    Enum.reduce(word_list, MapSet.new([""]), fn word, prefixes ->
+      word |> do_prefixes |> MapSet.union(prefixes)
+    end)
+  end
+
+  defp do_prefixes(word) do
+    for i <- 1..byte_size(word) - 1, into: %MapSet{} do
+      <<prefix::binary-size(i), _::binary>> = word
+      prefix
+    end
   end
 end
