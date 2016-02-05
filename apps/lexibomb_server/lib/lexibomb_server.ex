@@ -8,12 +8,22 @@ defmodule LexibombServer do
 
     children = [
       # Define workers and child supervisors to be supervised
-      worker(LexibombServer.WordList, []),
+      worker(LexibombServer.WordList, word_list_args),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: LexibombServer.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  # Force a minimal word list when running tests
+  defp word_list_args do
+    case Mix.env do
+      :test ->
+        [MapSet.new(~W(THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG))]
+      _ ->
+        []
+    end
   end
 end
