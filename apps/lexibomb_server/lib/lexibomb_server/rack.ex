@@ -26,6 +26,7 @@ defmodule LexibombServer.Rack do
 
       iex> LexibombServer.Rack.new "Hello"
       %LexibombServer.Rack{tiles: ["H", "E", "L", "L", "O"]}
+
       iex> LexibombServer.Rack.new ~W(E E L R T T _)
       %LexibombServer.Rack{tiles: ["E", "E", "L", "R", "T", "T", "_"]}
   """
@@ -51,6 +52,7 @@ defmodule LexibombServer.Rack do
 
       iex> LexibombServer.Rack.new("EELRTTS") |> LexibombServer.Rack.letters
       ["E", "L", "R", "T", "S"]
+
       iex> LexibombServer.Rack.new("EELRTT_") |> LexibombServer.Rack.letters
       ["E", "L", "R", "T", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
        "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -81,6 +83,7 @@ defmodule LexibombServer.Rack do
 
       iex> LexibombServer.Rack.new("EELRTTS") |> LexibombServer.Rack.remove("SET")
       %LexibombServer.Rack{tiles: ["E", "L", "R", "T"]}
+
       iex> LexibombServer.Rack.new("EELRTT_") |> LexibombServer.Rack.remove(~W(T R E a T))
       %LexibombServer.Rack{tiles: ["E", "L"]}
   """

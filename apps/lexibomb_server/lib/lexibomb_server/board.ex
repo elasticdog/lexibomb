@@ -191,14 +191,19 @@ defmodule LexibombServer.Board do
 
       iex> LexibombServer.Board.parse_coord "10B"
       {:ok, {10, 2}}
+
       iex> LexibombServer.Board.parse_coord "10 b"
       {:ok, {10, 2}}
+
       iex> LexibombServer.Board.parse_coord {10, "B"}
       {:ok, {10, 2}}
+
       iex> LexibombServer.Board.parse_coord {10, 2}
       {:ok, {10, 2}}
+
       iex> LexibombServer.Board.parse_coord {-10, 2}
       {:error, :badarg}
+
       iex> LexibombServer.Board.parse_coord {"B", 10}
       {:error, :badarg}
 

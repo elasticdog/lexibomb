@@ -49,8 +49,10 @@ defmodule LexibombServer.Tile do
 
       iex> LexibombServer.Tile.points "G"
       2
+
       iex> LexibombServer.Tile.points "g"
       0
+
       iex> LexibombServer.Tile.points "_"
       0
   """
