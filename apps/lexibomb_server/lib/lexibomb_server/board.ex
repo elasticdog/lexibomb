@@ -301,6 +301,25 @@ defmodule LexibombServer.Board do
   def __reveal__(%LexibombServer.Board{} = board) do
     %{board | grid: Grid.__reveal__(board.grid)}
   end
+
+  @doc false
+  @spec __example__(pid) :: :ok
+  def __example__(pid) do
+    [
+      %LexibombServer.Play{start: "8I",  direction: :down,   letters: ~W(E N T E R)},
+      %LexibombServer.Play{start: "8H",  direction: :across, letters: ~W(B E)},
+      %LexibombServer.Play{start: "8B",  direction: :down,   letters: ~W(G A V E)},
+      %LexibombServer.Play{start: "9E",  direction: :down,   letters: ~W(M U S E S)},
+      %LexibombServer.Play{start: "10B", direction: :across, letters: ~W(V I R U L e N T)},
+      %LexibombServer.Play{start: "12I", direction: :across, letters: ~W(R E D)},
+      %LexibombServer.Play{start: "11K", direction: :across, letters: ~W(L Y T H E)},
+      %LexibombServer.Play{start: "8K",  direction: :down,   letters: ~W(C H I L D R E N)},
+      %LexibombServer.Play{start: "9K",  direction: :across, letters: ~W(H E A R D)},
+      %LexibombServer.Play{start: "6O",  direction: :down,   letters: ~W(B R I D L E S)},
+      %LexibombServer.Play{start: "7L",  direction: :across, letters: ~W(T O U R)},
+    ]
+    |> Enum.each(&make_play(pid, &1))
+  end
 end
 
 
