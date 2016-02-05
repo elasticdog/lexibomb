@@ -5,7 +5,7 @@ defmodule LexibombServer.Board do
 
   A default Lexibomb board consists of a 15 x 15 grid of squares. The squares
   are referred to using a coordinate system where the rows are numbered
-  1 through 15, and the columns are numbered "a" through "o". A number combined
+  1 through 15, and the columns are lettered "a" through "o". A number combined
   with a letter specify a square on the board.
 
   A "seed" value is stored with each board and used to seed the pseudorandom
