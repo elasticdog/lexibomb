@@ -7,6 +7,8 @@ defmodule LexibombServer.Rack do
 
   defstruct tiles: []
 
+  alias LexibombServer.WordList
+
   @type t :: %{tiles: [String.t]}
 
   @blank "_"
@@ -98,6 +100,31 @@ defmodule LexibombServer.Rack do
       end)
 
     %{rack | tiles: tiles}
+  end
+
+  @doc """
+  Returns the set of all prefixes that can be made from the tiles in a `rack`.
+
+  ## Examples
+
+      > rack = LexibombServer.Rack.new("ABC")
+      > LexibombServer.Rack.prefixes(rack)
+      #MapSet<["", "A", "AB", "ABC", "AC", "B", "BA", "BAC", "C", "CA", "CAB"]>
+  """
+  @spec prefixes(t) :: MapSet.t
+  def prefixes(rack) do
+    do_prefixes("", rack, MapSet.new())
+  end
+
+  defp do_prefixes(prefix, rack, results) do
+    if WordList.prefix?(prefix) do
+      results = MapSet.put(results, prefix)
+      Enum.reduce(letters(rack), results, fn letter, results ->
+        do_prefixes(prefix <> letter, remove(rack, letter), results)
+      end)
+    else
+      results
+    end
   end
 
   @spec lowercase?(String.t) :: boolean
