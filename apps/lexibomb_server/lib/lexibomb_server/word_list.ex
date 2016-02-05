@@ -12,21 +12,10 @@ defmodule LexibombServer.WordList do
   """
   @spec start_link(MapSet.t) :: Agent.on_start
   def start_link(word_list \\ default_list) do
-    normalized_list = Enum.map(word_list, &normalize/1)
-    Agent.start_link(fn -> normalized_list end, name: __MODULE__)
-  end
+    words = Enum.map(word_list, &normalize/1)
+    prefixes = prefixes(words)
 
-  @spec default_list :: MapSet.t
-  defp default_list do
-    Application.app_dir(:lexibomb_server, "priv/word.list")
-    |> File.stream!
-    |> Stream.map(&String.rstrip/1)
-    |> MapSet.new
-  end
-
-  @spec normalize(String.t) :: String.t
-  defp normalize(word) do
-    String.upcase(word)
+    Agent.start_link(fn -> {words, prefixes} end, name: __MODULE__)
   end
 
   @doc """
@@ -42,13 +31,23 @@ defmodule LexibombServer.WordList do
   """
   @spec member?(String.t) :: boolean
   def member?(word) do
-    Agent.get(__MODULE__, fn word_list ->
-      normalize(word) in word_list
+    Agent.get(__MODULE__, fn {words, _} ->
+      normalize(word) in words
     end)
   end
 
   @doc """
-  The set of all prefixes of each word in a given `word_list`.
+  Checks if the given `prefix` is a valid prefix in the word list.
+  """
+  @spec prefix?(String.t) :: boolean
+  def prefix?(prefix) do
+    Agent.get(__MODULE__, fn {_, prefixes} ->
+      normalize(prefix) in prefixes
+    end)
+  end
+
+  @doc """
+  Returns the set of all prefixes of each word in the given `word_list`.
 
   ## Examples
 
@@ -63,10 +62,24 @@ defmodule LexibombServer.WordList do
     end)
   end
 
+  @spec do_prefixes(String.t) :: MapSet.t
   defp do_prefixes(word) do
     for i <- 1..byte_size(word) - 1, into: %MapSet{} do
       <<prefix::binary-size(i), _::binary>> = word
       prefix
     end
+  end
+
+  @spec default_list :: MapSet.t
+  defp default_list do
+    Application.app_dir(:lexibomb_server, "priv/word.list")
+    |> File.stream!
+    |> Stream.map(&String.rstrip/1)
+    |> MapSet.new
+  end
+
+  @spec normalize(String.t) :: String.t
+  defp normalize(word) do
+    String.upcase(word)
   end
 end
