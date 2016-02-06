@@ -256,6 +256,22 @@ defmodule LexibombServer.Board do
   end
 
   @doc """
+  Returns `true` if the given coordinate points to an anchor square.
+  """
+  @spec anchor_square?(pid, coord) :: boolean
+  def anchor_square?(pid, coord) do
+    result =
+      with {:ok, coord} <- parse_coord(coord),
+           grid = get(pid).grid,
+        do: Grid.anchor_square?(grid, coord)
+
+    case result do
+      {:error, _} -> false
+      _ -> result
+    end
+  end
+
+  @doc """
   Returns `true` if the given coordinate points to a square on the board.
   """
   @spec valid_square?(pid, coord) :: boolean

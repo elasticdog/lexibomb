@@ -141,6 +141,48 @@ defmodule LexibombServer.Board.Grid do
     |> Map.new
   end
 
+  @doc """
+  Returns `true` if the given coordinate points to an anchor square.
+  """
+  @spec anchor_square?(t, coord) :: boolean
+  def anchor_square?(grid, coord) do
+    cond do
+      Map.get(grid, coord) |> Square.played? ->
+        false
+      any_cardinals_played?(grid, coord) ->
+        true
+      true ->
+        false
+    end
+  end
+
+  @doc"""
+  Returns `true` if any of the squares located in the cardinal directions from
+  the given coordinate have a tile played on them.
+  """
+  @spec any_cardinals_played?(t, coord) :: boolean
+  def any_cardinals_played?(grid, coord) do
+    coord
+    |> cardinal_coords
+    |> Enum.any?(fn coord ->
+         Map.get(grid, coord) |> Square.played?
+       end)
+  end
+
+  @doc"""
+  Returns the four adjacent coordinates that are in the cardinal directions
+  (N, E, S, W) from the given `coord`.
+  """
+  @spec cardinal_coords(coord) :: [coord]
+  def cardinal_coords({row, col}) do
+    [
+      {row - 1, col},
+      {row + 1, col},
+      {row, col - 1},
+      {row, col + 1},
+    ]
+  end
+
   @spec valid_coord?(t, coord) :: boolean
   def valid_coord?(grid, coord) do
     grid

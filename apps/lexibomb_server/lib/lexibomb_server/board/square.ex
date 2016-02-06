@@ -74,13 +74,19 @@ defmodule LexibombServer.Board.Square do
   end
 
   @doc """
+  Returns `true` if the square has a tile placed on it.
+  """
+  @spec played?(t) :: boolean
+  def played?(square) do
+    square.tile != ""
+  end
+
+  @doc """
   Returns `true` if the square has no tile placed on it.
   """
+  @spec playable?(t) :: boolean
   def playable?(square) do
-    case square.tile do
-      "" -> true
-      _ -> false
-    end
+    !played?(square)
   end
 
   @doc """
