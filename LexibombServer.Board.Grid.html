@@ -63,7 +63,7 @@
         LexibombServer.Board.Grid
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -143,10 +143,48 @@ a 17 x 17 grid underneath.</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#all_anchor_squares/1">all_anchor_squares(grid)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a list of all the coordinates on the grid that are anchor squares</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#anchor_square?/2">anchor_square?(grid, coord)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if the given coordinate points to an anchor square</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#any_cardinals_played?/2">any_cardinals_played?(grid, coord)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if any of the squares located in the cardinal directions from
+the given coordinate have a tile played on them</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#board_size/1">board_size(grid)</a>
   </div>
   
     <div class="summary-synopsis"><p>Returns the size of the game board</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#cardinal_coords/1">cardinal_coords(arg)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the four adjacent coordinates that are in the cardinal directions
+(N, E, S, W) from the given <code class="inline">coord</code></p>
 </div>
   
 </div>
@@ -276,7 +314,7 @@ recursively reveal all adjacent squares</p>
     </a>
     <span class="signature">active_squares(grid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L138" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L138" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -296,6 +334,88 @@ recursively reveal all adjacent squares</p>
 
   </section>
 </div>
+<div class="detail" id="all_anchor_squares/1">
+  <div class="detail-header">
+    <a href="#all_anchor_squares/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">all_anchor_squares(grid)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L190" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">all_anchor_squares(<a href="#t:t/0">t</a>) :: [<a href="#t:coord/0">coord</a>]</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns a list of all the coordinates on the grid that are anchor squares.</p>
+
+  </section>
+</div>
+<div class="detail" id="anchor_square?/2">
+  <div class="detail-header">
+    <a href="#anchor_square?/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">anchor_square?(grid, coord)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L148" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">anchor_square?(<a href="#t:t/0">t</a>, <a href="#t:coord/0">coord</a>) :: boolean</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns <code class="inline">true</code> if the given coordinate points to an anchor square.</p>
+
+  </section>
+</div>
+<div class="detail" id="any_cardinals_played?/2">
+  <div class="detail-header">
+    <a href="#any_cardinals_played?/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">any_cardinals_played?(grid, coord)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L164" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">any_cardinals_played?(<a href="#t:t/0">t</a>, <a href="#t:coord/0">coord</a>) :: boolean</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns <code class="inline">true</code> if any of the squares located in the cardinal directions from
+the given coordinate have a tile played on them.</p>
+
+  </section>
+</div>
 <div class="detail" id="board_size/1">
   <div class="detail-header">
     <a href="#board_size/1" class="detail-link" title="Link to this function">
@@ -303,7 +423,7 @@ recursively reveal all adjacent squares</p>
     </a>
     <span class="signature">board_size(grid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L42" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L42" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -324,6 +444,34 @@ recursively reveal all adjacent squares</p>
 
   </section>
 </div>
+<div class="detail" id="cardinal_coords/1">
+  <div class="detail-header">
+    <a href="#cardinal_coords/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">cardinal_coords(arg)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L177" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">cardinal_coords(<a href="#t:coord/0">coord</a>) :: [<a href="#t:coord/0">coord</a>]</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the four adjacent coordinates that are in the cardinal directions
+(N, E, S, W) from the given <code class="inline">coord</code>.</p>
+
+  </section>
+</div>
 <div class="detail" id="cascading_reveal/2">
   <div class="detail-header">
     <a href="#cascading_reveal/2" class="detail-link" title="Link to this function">
@@ -331,7 +479,7 @@ recursively reveal all adjacent squares</p>
     </a>
     <span class="signature">cascading_reveal(grid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L103" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L103" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -359,7 +507,7 @@ recursively reveal all adjacent squares.</p>
     </a>
     <span class="signature">init(size)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L32" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L32" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -386,7 +534,7 @@ recursively reveal all adjacent squares.</p>
     </a>
     <span class="signature">place_bomb(grid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L63" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L63" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -413,7 +561,7 @@ recursively reveal all adjacent squares.</p>
     </a>
     <span class="signature">place_bombs(grid, coords)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L79" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L79" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -440,7 +588,7 @@ recursively reveal all adjacent squares.</p>
     </a>
     <span class="signature">place_tile(grid, coord, tile)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L91" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L91" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -468,7 +616,7 @@ recursively reveal all adjacent squares.</p>
     </a>
     <span class="signature">reveal(grid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L128" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L128" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -495,7 +643,7 @@ recursively reveal all adjacent squares.</p>
     </a>
     <span class="signature">size(grid)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L52" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L52" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -523,7 +671,7 @@ recursively reveal all adjacent squares.</p>
     </a>
     <span class="signature">valid_coord?(grid, coord)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/4a7eb32b198b00f43435c6eecabf4aaeaebe5c2c/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L145" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/board/grid.ex#L198" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
