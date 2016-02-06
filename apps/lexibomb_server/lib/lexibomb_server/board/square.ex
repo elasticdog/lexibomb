@@ -78,7 +78,7 @@ defmodule LexibombServer.Board.Square do
   """
   @spec played?(t) :: boolean
   def played?(square) do
-    square.tile != ""
+    square.tile != "" and square.tile != @inactive
   end
 
   @doc """
@@ -86,7 +86,7 @@ defmodule LexibombServer.Board.Square do
   """
   @spec playable?(t) :: boolean
   def playable?(square) do
-    !played?(square)
+    square.tile == ""
   end
 
   @doc """

@@ -183,6 +183,17 @@ defmodule LexibombServer.Board.Grid do
     ]
   end
 
+  @doc """
+  Returns a list of all the coordinates on the grid that are anchor squares.
+  """
+  @spec all_anchor_squares(t) :: [coord]
+  def all_anchor_squares(grid) do
+    grid
+    |> active_squares
+    |> Map.keys
+    |> Enum.filter(&anchor_square?(grid, &1))
+  end
+
   @spec valid_coord?(t, coord) :: boolean
   def valid_coord?(grid, coord) do
     grid

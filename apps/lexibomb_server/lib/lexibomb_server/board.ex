@@ -272,6 +272,14 @@ defmodule LexibombServer.Board do
   end
 
   @doc """
+  Returns a list of all the coordinates on the board that are anchor squares.
+  """
+  @spec all_anchor_squares(pid) :: [Grid.coord]
+  def all_anchor_squares(pid) do
+    get(pid).grid |> Grid.all_anchor_squares
+  end
+
+  @doc """
   Returns `true` if the given coordinate points to a square on the board.
   """
   @spec valid_square?(pid, coord) :: boolean
