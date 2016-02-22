@@ -6,6 +6,7 @@ defmodule LexibombServer.Play do
 
   alias LexibombServer.Board
   alias LexibombServer.Board.Grid
+  alias LexibombServer.Board.Square
   alias LexibombServer.Rack
 
   @type direction :: :across | :down
@@ -42,4 +43,34 @@ defmodule LexibombServer.Play do
   defp next_coord(coord, direction)
   defp next_coord({row, col}, :across), do: {row, col + 1}
   defp next_coord({row, col}, :down), do: {row + 1, col}
+
+  # Returns the coordinate of the last square starting from `coord` and going
+  # in `direction` that is a letter.
+  @spec scan_letters(Grid.t, Grid.coord, direction) :: Grid.coord
+  defp scan_letters(grid, coord, direction) do
+    next_coord = next_coord(coord, direction)
+    next_square = Map.get(grid, next_coord)
+
+    if Square.played?(next_square) do
+      scan_letters(grid, next_coord, direction)
+    else
+      coord
+    end
+  end
+
+  # Returns the coordinate of the last square starting from `coord` and going
+  # in `direction` that is not an anchor (nor off the board).
+  @spec scan_to_anchor(Grid.t, Grid.cood, direction) :: Grid.coord
+  defp scan_to_anchor(grid, coord, direction) do
+    next_coord = next_coord(coord, direction)
+
+    cond do
+      Grid.anchor_square?(grid, next_coord) ->
+        coord
+      not Grid.valid_coord?(grid, next_coord) ->
+        coord
+      true ->
+        scan_to_anchor(grid, next_coord, direction)
+    end
+  end
 end
