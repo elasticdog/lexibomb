@@ -63,7 +63,7 @@
         LexibombServer.Play
         
         
-          <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/play.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/elasticdog/lexibomb/blob/e69ebf571b7021af8b03d00e1099b07b3d6b2a42/apps/lexibomb_server/lib/lexibomb_server/play.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -90,6 +90,12 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
+    <a href="#t:cardinal_direction/0">cardinal_direction()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#t:direction/0">direction()</a>
   </div>
   
@@ -111,12 +117,43 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
+    <a href="#crossword/3">crossword(grid, coord, direction)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the word that intersects <code class="inline">coord</code> in the perpendicular direction to
+the given <code class="inline">direction</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#letters_with_coords/1">letters_with_coords(play)</a>
   </div>
   
     <div class="summary-synopsis"><p>Returns the list of letters with each letter wrapped in a tuple alongside its
 coordinate</p>
 </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#opposite/1">opposite(direction)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the cardinal direction that is opposite to the given <code class="inline">direction</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#scan_letters/3">scan_letters(grid, coord, direction)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#scan_to_anchor/3">scan_to_anchor(grid, coord, direction)</a>
+  </div>
   
 </div>
 
@@ -139,7 +176,11 @@ coordinate</p>
             Types
           </h1>
           <div class="types-list">
-            <div id="t:direction/0" class="type-detail">
+            <div id="t:cardinal_direction/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:cardinal_direction/0">cardinal_direction</a> :: :n | :e | :s | :w</code></pre>
+  
+</div>
+<div id="t:direction/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:direction/0">direction</a> :: :across | :down</code></pre>
   
 </div>
@@ -160,14 +201,43 @@ coordinate</p>
             </a>
             Functions
           </h1>
-          <div class="detail" id="letters_with_coords/1">
+          <div class="detail" id="crossword/3">
+  <div class="detail-header">
+    <a href="#crossword/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">crossword(grid, coord, direction)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/e69ebf571b7021af8b03d00e1099b07b3d6b2a42/apps/lexibomb_server/lib/lexibomb_server/play.ex#L59" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">crossword(<a href="LexibombServer.Board.Grid.html#t:t/0">LexibombServer.Board.Grid.t</a>, <a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a>, <a href="#t:direction/0">direction</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the word that intersects <code class="inline">coord</code> in the perpendicular direction to
+the given <code class="inline">direction</code>.</p>
+<p>Uses ‘.’ for the one square that is missing a letter.</p>
+
+  </section>
+</div>
+<div class="detail" id="letters_with_coords/1">
   <div class="detail-header">
     <a href="#letters_with_coords/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
     <span class="signature">letters_with_coords(play)</span>
       
-      <a href="https://github.com/elasticdog/lexibomb/blob/8df81d3cd1cb1ec161ecd3356d056a70bcc917c2/apps/lexibomb_server/lib/lexibomb_server/play.ex#L24" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elasticdog/lexibomb/blob/e69ebf571b7021af8b03d00e1099b07b3d6b2a42/apps/lexibomb_server/lib/lexibomb_server/play.ex#L26" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -188,6 +258,85 @@ coordinate</p>
     <p>Returns the list of letters with each letter wrapped in a tuple alongside its
 coordinate.</p>
 
+  </section>
+</div>
+<div class="detail" id="opposite/1">
+  <div class="detail-header">
+    <a href="#opposite/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">opposite(direction)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/e69ebf571b7021af8b03d00e1099b07b3d6b2a42/apps/lexibomb_server/lib/lexibomb_server/play.ex#L109" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">opposite(<a href="#t:cardinal_direction/0">cardinal_direction</a>) :: <a href="#t:cardinal_direction/0">cardinal_direction</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the cardinal direction that is opposite to the given <code class="inline">direction</code>.</p>
+
+  </section>
+</div>
+<div class="detail" id="scan_letters/3">
+  <div class="detail-header">
+    <a href="#scan_letters/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">scan_letters(grid, coord, direction)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/e69ebf571b7021af8b03d00e1099b07b3d6b2a42/apps/lexibomb_server/lib/lexibomb_server/play.ex#L121" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">scan_letters(<a href="LexibombServer.Board.Grid.html#t:t/0">LexibombServer.Board.Grid.t</a>, <a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a>, <a href="#t:cardinal_direction/0">cardinal_direction</a> | <a href="#t:direction/0">direction</a>) :: <a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="scan_to_anchor/3">
+  <div class="detail-header">
+    <a href="#scan_to_anchor/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">scan_to_anchor(grid, coord, direction)</span>
+      
+      <a href="https://github.com/elasticdog/lexibomb/blob/e69ebf571b7021af8b03d00e1099b07b3d6b2a42/apps/lexibomb_server/lib/lexibomb_server/play.ex#L135" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">scan_to_anchor(<a href="LexibombServer.Board.Grid.html#t:t/0">LexibombServer.Board.Grid.t</a>, <a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a>, <a href="#t:cardinal_direction/0">cardinal_direction</a> | <a href="#t:direction/0">direction</a>) :: <a href="LexibombServer.Board.Grid.html#t:coord/0">LexibombServer.Board.Grid.coord</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
   </section>
 </div>
 
